@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.main.tgcareer.modules.salary.dao.SalaryDao">
+
+    <sql id="salaryColumns">
+        a.id as id,
+        b.name as city,
+        c.name as job,
+        d.name as corporation,
+        a.contact as contact
+    </sql>
+
+    <sql id="salaryJoins">
+        LEFT JOIN city b ON  b.id = a.city_id
+        LEFT JOIN job c ON c.id = a.job_id
+        LEFT JOIN corporation d ON  d.fid = a.corporation_id
+    </sql>
+
+
+    <select id="getSalary" resultType="com.main.tgcareer.modules.salary.entity.Salary">
+        SELECT
+        <include refid="salaryColumns" />
+        FROM salary a
+        <include refid="salaryJoins" />
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="getAllSalary" resultType="com.main.tgcareer.modules.salary.entity.Salary">
+        SELECT
+        <include refid="salaryColumns" />
+        FROM salary a
+        <include refid="salaryJoins" />
+
+    </select>
+
+    <insert id="saveSalary">
+        INSERT INTO salary(
+        id,
+        city_id,
+        job_id,
+        corporation_id,
+        contact
+        ) VALUES (
+        #{id},
+        #{city},
+        #{job},
+        #{corporation},
+        #{contact}
+        )
+    </insert>
+
+    <update id="updateSalary">
+        UPDATE salary
+        <set>
+            <if test="city != null">
+                city_id = #{city},
+            </if>
+            <if test="job != null">
+                job_id = #{job},
+            </if>
+            <if test="corporation != null">
+                corporation_id = #{corporation},
+            </if>
+            <if test="contact != null">
+                contact = #{contact},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteSalary">
+        DELETE FROM salary
+        WHERE id = #{id}
+    </delete>
+
+
+</mapper>
