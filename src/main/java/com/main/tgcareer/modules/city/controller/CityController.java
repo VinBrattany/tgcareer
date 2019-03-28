@@ -23,9 +23,9 @@ public class CityController {
     /**
      * 获取City信息
      */
-    @RequestMapping(method = RequestMethod.GET,value = "city")
-    public AjaxJson college(@RequestParam String cityId){
-        City city = cityService.getCity(cityId);
+    @RequestMapping(method = RequestMethod.GET,value = "city{id}")
+    public AjaxJson college(@PathVariable String id){
+        City city = cityService.getCity(id);
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("city",city);
         return Ajax.success(map);
@@ -35,7 +35,6 @@ public class CityController {
      */
     @RequestMapping(method = RequestMethod.POST,value = "city")
     public AjaxJson newCity(@RequestBody City city){
-//        user.setOpenid(redisService.get(httpServletRequest.getParameter("token")).toString());
         cityService.saveCity(city);
         return Ajax.success();
     }
@@ -45,18 +44,15 @@ public class CityController {
     @RequestMapping(method = RequestMethod.PUT,value = "city")
     public AjaxJson updateCity(@RequestBody City city){
         cityService.updateCity(city);
-        //返回College信息
-        City newCity = cityService.getCity(city.getId());
-        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("city",newCity);
-        return Ajax.success(map);
+        return Ajax.success();
     }
 
     /*
      * 删除City信息
      */
-//    @RequestMapping(method = RequestMethod.DELETE,value = "city")
-//    public AjaxJson deleteCity(){
-//        return Ajax.success();
-//    }
+    @RequestMapping(method = RequestMethod.DELETE,value = "city{id}")
+    public AjaxJson deleteCity(@PathVariable String id){
+        cityService.deleteCity(id);
+        return Ajax.success();
+    }
 }

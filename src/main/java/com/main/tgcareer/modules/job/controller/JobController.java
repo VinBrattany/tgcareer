@@ -23,10 +23,9 @@ public class JobController extends BaseController{
     /*
     * 获取job信息
      */
-    @RequestMapping(method = RequestMethod.GET,value = "job")
-    public AjaxJson job(@RequestParam String jobid){
-        Job job = jobService.getJob(jobid);
-//        job.setOpenid("");
+    @RequestMapping(method = RequestMethod.GET,value = "job{id}")
+    public AjaxJson job(@PathVariable String id){
+        Job job = jobService.getJob(id);
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("job",job);
         return Ajax.success(map);
@@ -36,7 +35,6 @@ public class JobController extends BaseController{
      */
     @RequestMapping(method = RequestMethod.POST,value = "job")
     public AjaxJson newJob(@RequestBody Job job){
-//        user.setOpenid(redisService.get(httpServletRequest.getParameter("token")).toString());
         jobService.saveJob(job);
         return Ajax.success();
     }
@@ -46,21 +44,15 @@ public class JobController extends BaseController{
     @RequestMapping(method = RequestMethod.PUT,value = "job")
     public AjaxJson updateJob(@RequestBody Job job){
         jobService.updateJob(job);
-
-        //返回job信息
-        Job newJob = jobService.getJob(job.getId());
-//        newUser.setOpenid("");
-        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("job",newJob);
-        return Ajax.success(map);
+        return Ajax.success();
     }
 
     /**
      * 删除用户信息
      */
-//    @RequestMapping(method = RequestMethod.DELETE,value = "job")
-//    public AjaxJson deleteJob(@RequestParam String jobid){
-//        jobService.deleteJob(jobid);
-//        return Ajax.success();
-//    }
+    @RequestMapping(method = RequestMethod.DELETE,value = "job{id}")
+    public AjaxJson deleteJob(@PathVariable String id){
+        jobService.deleteJob(id);
+        return Ajax.success();
+    }
 }

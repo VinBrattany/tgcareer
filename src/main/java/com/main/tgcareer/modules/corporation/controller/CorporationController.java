@@ -21,43 +21,37 @@ public class CorporationController {
     @Autowired
     private RedisServiceImpl redisService;
     /**
-     * 获取用户信息
+     * 获取
      */
-    @RequestMapping(method = RequestMethod.GET,value = "corporation")
-    public AjaxJson corporation(@RequestParam String corId){
-        Corporation corporation = corporationService.getCorporation(corId);
-//        corporation.setOpenid("");
+    @RequestMapping(method = RequestMethod.GET,value = "corporation{id}")
+    public AjaxJson corporation(@PathVariable String id){
+        Corporation corporation = corporationService.getCorporation(id);
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("corporation",corporation);
         return Ajax.success(map);
     }
     /**
-     * 新建用户信息
+     * 新建
      */
     @RequestMapping(method = RequestMethod.POST,value = "corporation")
     public AjaxJson newCorporation(@RequestBody Corporation corporation){
-//        user.setOpenid(redisService.get(httpServletRequest.getParameter("token")).toString());
         corporationService.saveCorporation(corporation);
         return Ajax.success();
     }
     /**
-     * 更新用户信息
+     * 更新
      */
     @RequestMapping(method = RequestMethod.PUT,value = "corporation")
     public AjaxJson updateCorporation(@RequestBody Corporation corporation){
         corporationService.updateCorporation(corporation);
-
-        //返回用户信息
-        Corporation newCorporation = corporationService.getCorporation(corporation.getId());
-        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("corporation",newCorporation);
-        return Ajax.success(map);
+        return Ajax.success();
     }
     /**
-     * 删除用户信息
+     * 删除
      */
-//    @RequestMapping(method = RequestMethod.DELETE,value = "corporation")
-//    public AjaxJson deleteCorporation(){
-//        return Ajax.success();
-//    }
+    @RequestMapping(method = RequestMethod.DELETE,value = "corporation{id}")
+    public AjaxJson deleteCorporation(@PathVariable String id){
+        corporationService.deleteCorporation(id);
+        return Ajax.success();
+    }
 }

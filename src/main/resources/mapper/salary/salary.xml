@@ -16,21 +16,21 @@
         LEFT JOIN corporation d ON  d.fid = a.corporation_id
     </sql>
 
-
     <select id="getSalary" resultType="com.main.tgcareer.modules.salary.entity.Salary">
         SELECT
         <include refid="salaryColumns" />
         FROM salary a
         <include refid="salaryJoins" />
-        WHERE a.id = #{id}
-    </select>
-
-    <select id="getAllSalary" resultType="com.main.tgcareer.modules.salary.entity.Salary">
-        SELECT
-        <include refid="salaryColumns" />
-        FROM salary a
-        <include refid="salaryJoins" />
-
+        <where>
+            <if test="id != null">
+                a.id = #{id}
+            </if>
+            <if test="temp != null">
+                b.name LIKE CONCAT('%','${temp}','%') OR
+                c.name LIKE CONCAT('%','${temp}','%') OR
+                d.name LIKE CONCAT('%','${temp}','%')
+            </if>
+        </where>
     </select>
 
     <insert id="saveSalary">

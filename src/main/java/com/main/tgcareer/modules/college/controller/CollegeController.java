@@ -23,10 +23,9 @@ public class CollegeController {
     /**
      * 获取College信息
      */
-    @RequestMapping(method = RequestMethod.GET,value = "college")
-    public AjaxJson college(@RequestParam String collegeId){
-        College college = collegeService.getCollege(collegeId);
-//        user.setOpenid("");
+    @RequestMapping(method = RequestMethod.GET,value = "college/{id}")
+    public AjaxJson college(@PathVariable String id){
+        College college = collegeService.getCollege(id);
         LinkedHashMap<String,Object> map = new LinkedHashMap<>();
         map.put("college",college);
         return Ajax.success(map);
@@ -36,7 +35,6 @@ public class CollegeController {
      */
     @RequestMapping(method = RequestMethod.POST,value = "college")
     public AjaxJson newCollege(@RequestBody College college){
-//        user.setOpenid(redisService.get(httpServletRequest.getParameter("token")).toString());
         collegeService.saveCollege(college);
         return Ajax.success();
     }
@@ -46,18 +44,15 @@ public class CollegeController {
     @RequestMapping(method = RequestMethod.PUT,value = "college")
     public AjaxJson updateCollege(@RequestBody College college){
         collegeService.updateCollege(college);
-        //返回College信息
-        College newCollege = collegeService.getCollege(college.getId());
-        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("college",newCollege);
-        return Ajax.success(map);
+        return Ajax.success();
     }
 
     /*
      * 删除College信息
      */
-//    @RequestMapping(method = RequestMethod.DELETE,value = "college")
-//    public AjaxJson deleteCollege(){
-//        return Ajax.success();
-//    }
+    @RequestMapping(method = RequestMethod.DELETE,value = "college{id}")
+    public AjaxJson deleteCollege(@PathVariable String id){
+        collegeService.deleteCollege(id);
+        return Ajax.success();
+    }
 }

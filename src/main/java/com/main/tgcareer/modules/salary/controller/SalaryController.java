@@ -18,16 +18,9 @@ public class SalaryController {
     SalaryService salaryService;
 
     @RequestMapping(method = RequestMethod.GET,value = "salary")
-    public AjaxJson salary(@RequestParam String id){
-        LinkedHashMap<String,Object> map = new LinkedHashMap<>();
-        map.put("salary",salaryService.getSalary(id));
-        return Ajax.success(map);
-    }
-
-    @RequestMapping(method = RequestMethod.GET,value = "allSalary")
-    public AjaxJson allSalary(@RequestParam Map map){
+    public AjaxJson salary(@RequestParam Map<String,String> params){
         LinkedHashMap<String,Object> maps = new LinkedHashMap<>();
-        maps.put("salary",salaryService.getAllSalary(map));
+        maps.put("salary",salaryService.getSalary(params));
         return Ajax.success(maps);
     }
 
@@ -43,8 +36,8 @@ public class SalaryController {
         return Ajax.success();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE,value = "salary")
-    public AjaxJson deleteSalary(@RequestParam String id){
+    @RequestMapping(method = RequestMethod.DELETE,value = "salary{id}")
+    public AjaxJson deleteSalary(@PathVariable String id){
         salaryService.deleteSalary(id);
         return Ajax.success();
     }

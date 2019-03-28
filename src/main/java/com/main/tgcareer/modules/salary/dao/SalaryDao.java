@@ -9,9 +9,7 @@ import java.util.Map;
 @Component
 public interface SalaryDao {
 
-    public Salary getSalary(String id);
-
-    public List<Salary> getAllSalary(Map map);
+    public List<Salary> getSalary(Map map);
 
     public void saveSalary(Salary salary);
 

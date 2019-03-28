@@ -17,9 +17,13 @@ public class CollegeService {
         return collegeDao.getCollege(id);
     }
     @Transactional
-    public void updateCollege(College college){
+    public void saveCollege(College college){
         college.setId(UUID.randomUUID().toString().replaceAll("-",""));
         collegeDao.saveCollege(college);
+    }
+    @Transactional
+    public void updateCollege(College college){
+        collegeDao.updateCollege(college);
     }
     @Transactional
     public void deleteCollege(String id){
