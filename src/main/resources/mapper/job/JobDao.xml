@@ -35,7 +35,7 @@
         </update>
 
         <delete id="deleteJob">
-                    delete job
+                    delete FROM job
                     WHERE id = #{id}
         </delete>
 

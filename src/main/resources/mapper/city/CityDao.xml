@@ -40,7 +40,7 @@
     </update>
 
     <delete id="deleteCity">
-                    delete city
+                    delete FROM city
                     WHERE id = #{id}
     </delete>
 </mapper>

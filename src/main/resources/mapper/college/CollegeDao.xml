@@ -34,7 +34,7 @@
     </update>
 
     <delete id="deleteCollege">
-                    delete college
+                    delete FROM college
                     WHERE id = #{id}
     </delete>
 </mapper>
