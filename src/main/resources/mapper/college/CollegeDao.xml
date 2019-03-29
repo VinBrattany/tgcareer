@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.main.tgcareer.modules.college.dao.CollegeDao">
+     <sql id="collegeColumns">
+               a.id as id,
+               a.name as name,
+     </sql>
+
+    <select id="getCollege" resultType="com.main.tgcareer.modules.college.entity.College">
+            SELECT
+            <include refid="collegeColumns" />
+            FROM college a
+            WHERE a.id = #{id}
+    </select>
+
+    <insert id="saveCollege">
+            INSERT INTO college(
+            id,
+            name,
+            ) VALUES (
+            #{id},
+            #{name},
+            )
+    </insert>
+
+    <update id="updateCollege">
+            UPDATE college
+            <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            </set>
+            WHERE id = #{id}
+    </update>
+
+    <delete id="deleteCollege">
+                    delete college
+                    WHERE id = #{id}
+    </delete>
+</mapper>

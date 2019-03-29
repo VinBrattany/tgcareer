@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.main.tgcareer.modules.job.dao.JobDao">
+
+    <sql id="jobColumns">
+           a.id as id,
+           a.name as name,
+    </sql>
+
+    <select id="getJob" resultType="com.main.tgcareer.modules.job.entity.Job">
+            SELECT
+            <include refid="jobColumns" />
+            FROM job a
+            WHERE a.id = #{id}
+        </select>
+
+        <insert id="saveJob">
+            INSERT INTO job(
+            id,
+            name,
+            ) VALUES (
+            #{id},
+            #{name},
+            )
+        </insert>
+
+        <update id="updateJob">
+            UPDATE job
+            <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            </set>
+            WHERE id = #{id}
+        </update>
+
+        <delete id="deleteJob">
+                    delete job
+                    WHERE id = #{id}
+        </delete>
+
+</mapper>
