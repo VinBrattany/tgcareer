@@ -4,41 +4,37 @@
 
     <sql id="salaryColumns">
         a.id as id,
-        b.name as city,
-        c.name as job,
-        d.name as corporation,
+        a.city as city,
+        a.job as job,
+        a.corporation as corporation,
         a.contact as contact
     </sql>
 
-    <sql id="salaryJoins">
-        LEFT JOIN city b ON  b.id = a.city_id
-        LEFT JOIN job c ON c.id = a.job_id
-        LEFT JOIN corporation d ON  d.fid = a.corporation_id
-    </sql>
 
     <select id="getSalary" resultType="com.main.tgcareer.modules.salary.entity.Salary">
         SELECT
         <include refid="salaryColumns" />
         FROM salary a
-        <include refid="salaryJoins" />
         <where>
             <if test="id != null">
                 a.id = #{id}
             </if>
             <if test="temp != null">
-                b.name LIKE CONCAT('%','${temp}','%') OR
-                c.name LIKE CONCAT('%','${temp}','%') OR
-                d.name LIKE CONCAT('%','${temp}','%')
+                a.city LIKE CONCAT('%','${temp}','%') OR
+                a.job LIKE CONCAT('%','${temp}','%') OR
+                a.corporation LIKE CONCAT('%','${temp}','%')
             </if>
         </where>
+        ORDER BY a.update_time
+        LIMIT ${start*limit-limit},${limit}
     </select>
 
     <insert id="saveSalary">
         INSERT INTO salary(
         id,
-        city_id,
-        job_id,
-        corporation_id,
+        city,
+        job,
+        corporation,
         contact
         ) VALUES (
         #{id},
@@ -53,13 +49,13 @@
         UPDATE salary
         <set>
             <if test="city != null">
-                city_id = #{city},
+                city = #{city},
             </if>
             <if test="job != null">
-                job_id = #{job},
+                job = #{job},
             </if>
             <if test="corporation != null">
-                corporation_id = #{corporation},
+                corporation = #{corporation},
             </if>
             <if test="contact != null">
                 contact = #{contact},

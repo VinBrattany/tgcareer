@@ -20,7 +20,7 @@ public class SalaryController {
     @RequestMapping(method = RequestMethod.GET,value = "salary")
     public AjaxJson salary(@RequestParam Map<String,String> params){
         LinkedHashMap<String,Object> maps = new LinkedHashMap<>();
-        maps.put("salary",salaryService.getSalary(params));
+        maps.put("data",salaryService.getSalary(params));
         return Ajax.success(maps);
     }
 

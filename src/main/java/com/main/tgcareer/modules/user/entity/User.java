@@ -25,7 +25,7 @@ public class User {
 
     @Getter@Setter private String college;
 
-    @Getter@Setter private byte eduction;
+    @Getter@Setter private String eduction;
 
     @Getter@Setter private boolean push;
 
