@@ -84,7 +84,7 @@
         </if>
         <if test="name != null">
             name = #{name},
-        </if>corporation
+        </if>
         <if test="corporation != null">
               corporation = #{corporation},
          </if>
@@ -95,7 +95,7 @@
             city = #{city},
         </if>
         <if test="college != null">
-            college_id = #{college},
+            college = #{college},
         </if>
         <if test="sex != null">
             sex = #{sex},
