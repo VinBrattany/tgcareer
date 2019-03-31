@@ -28,7 +28,9 @@
             </if>
         </where>
         ORDER BY a.update_time
-        LIMIT ${start*limit-limit},${limit}
+        <if test="limit != null">
+            LIMIT ${start*limit-limit},${limit}
+        </if>
     </select>
 
     <insert id="saveSalary">
