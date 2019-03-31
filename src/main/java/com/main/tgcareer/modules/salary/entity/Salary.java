@@ -14,4 +14,8 @@ public class Salary {
     @Getter @Setter private String corporation;
 
     @Getter @Setter private String contact;
+
+    @Getter @Setter private String createTime;
+
+    @Getter @Setter private String updateTime;
 }

@@ -7,7 +7,9 @@
         a.city as city,
         a.job as job,
         a.corporation as corporation,
-        a.contact as contact
+        a.contact as contact,
+        a.create_time as createTime,
+        a.update_time as updateTime
     </sql>
 
 
