@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 30/03/2019 14:26:44
+ Date: 31/03/2019 16:57:17
 */
 
 SET NAMES utf8mb4;
@@ -22,9 +22,9 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `candidate`;
 CREATE TABLE `candidate` (
-  `id` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
-  `name` varchar(12) COLLATE utf8mb4_general_ci NOT NULL,
-  `phone` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `sex` tinyint(1) NOT NULL,
   `age` tinyint(1) NOT NULL,
   `annual_salary` decimal(7,2) DEFAULT NULL,
@@ -38,11 +38,11 @@ CREATE TABLE `candidate` (
 -- ----------------------------
 DROP TABLE IF EXISTS `salary`;
 CREATE TABLE `salary` (
-  `id` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `city` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `job` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `corporation` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `contact` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `contact` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -55,12 +55,14 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `name` varchar(12) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `job` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `corporation` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
   `city` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `sex` tinyint(1) NOT NULL,
   `age` tinyint(1) unsigned NOT NULL,
   `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `college` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `eduction` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `eduction` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `push` tinyint(1) DEFAULT NULL,
   `expected_annual_salary` decimal(7,2) unsigned DEFAULT NULL,
   `annual_salary` decimal(7,2) DEFAULT NULL,

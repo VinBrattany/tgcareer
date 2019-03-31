@@ -12,6 +12,10 @@ public class User {
     @Getter @Setter private String petName;
 //    name
     @Getter @Setter private String name;
+
+    @Getter @Setter private String corporation;
+
+    @Getter @Setter private String job;
 //    city
     @Getter @Setter private String city;
 

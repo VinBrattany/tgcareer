@@ -9,6 +9,8 @@
        a.college as college,
        a.photo_path as photoPath,
        a.name as name,
+       a.corporation as corporation,
+       a.job as job,
        a.city as city,
        a.sex as sex,
        a.age as age,
@@ -36,6 +38,8 @@
         college,
         photo_path,
         name,
+        corporation,
+        job,
         city,
         sex,
         age,
@@ -52,6 +56,8 @@
         #{college},
         #{photoPath},
         #{name},
+        #{corporation},
+        #{job},
         #{city},
         #{sex},
         #{age},
@@ -78,6 +84,12 @@
         </if>
         <if test="name != null">
             name = #{name},
+        </if>corporation
+        <if test="corporation != null">
+              corporation = #{corporation},
+         </if>
+        <if test="job != null">
+              job = #{job},
         </if>
         <if test="city != null">
             city = #{city},
