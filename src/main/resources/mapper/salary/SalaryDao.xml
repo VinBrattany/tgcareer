@@ -21,8 +21,14 @@
             <if test="id != null">
                 a.id = #{id}
             </if>
-            <if test="temp != null">
-                a.job LIKE CONCAT('%','${temp}','%')
+            <if test="city != null">
+                a.city LIKE CONCAT('%','${city}','%')
+            </if>
+            <if test="job != null">
+                a.job LIKE CONCAT('%','${job}','%')
+            </if>
+            <if test="corporation != null">
+                a.corporation LIKE CONCAT('%','${corporation}','%')
             </if>
         </where>
         ORDER BY a.update_time
