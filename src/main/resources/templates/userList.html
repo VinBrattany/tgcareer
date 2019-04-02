@@ -25,6 +25,20 @@
             <td th:text="${user.job}">精算师</td>
         </tr>
     </table>
+    <table border="0" style="margin-top:4px; margin-left: 18px">
+        <tr>
+            <td><a href="#" class="easyui-linkbutton" onclick="downloadfile();">数据导出</a></td>
+
+        </tr>
+    </table>
 </div>
 </body>
+<script>
+    function downloadfile(){
+        $.ajax("/tgcareer/excel"){
+
+        }
+//        window.location.href="/tgcareer/excel";
+    }
+</script>
 </html>
