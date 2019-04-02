@@ -12,12 +12,12 @@ public class WxMaProperties {
     /**
      * 设置微信小程序的appid
      */
-    private String appid="wxd7abdd06de2298f5";
+    private String appid="wx88295c4357668c53";
 
     /**
      * 设置微信小程序的Secret
      */
-    private String secret="4b54038f7991d55a7165052f1988e449";
+    private String secret="1c46251685c1e96ea06a9373e02a4532";
 
     /**
      * 设置微信小程序的token

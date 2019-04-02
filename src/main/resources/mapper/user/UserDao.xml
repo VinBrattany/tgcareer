@@ -6,10 +6,12 @@
        a.id as id,
        a.open_id as openid,
        a.pet_name as petName,
-       col.name as college,
+       a.college as college,
        a.photo_path as photoPath,
        a.name as name,
-       c.name as city,
+       a.corporation as corporation,
+       a.job as job,
+       a.city as city,
        a.sex as sex,
        a.age as age,
        a.phone as phone,
@@ -17,12 +19,9 @@
        a.push as push,
        a.expected_annual_salary as expectedAnnualSalary,
        a.annual_salary as annualSalary,
-       a.monthly_salary as monthlySalary
-    </sql>
-
-    <sql id="userJoins">
-        LEFT JOIN college col ON col.id = a.college_id
-        LEFT JOIN city c ON  c.id = a.city_id
+       a.monthly_salary as monthlySalary,
+       a.update_time as updateTime,
+       a.create_time as createTime
     </sql>
 
 
@@ -30,8 +29,16 @@
         SELECT
         <include refid="userColumns" />
         FROM user a
-        <include refid="userJoins" />
-        WHERE a.open_id = #{openid}
+        WHERE a.open_id = #{id}
+    </select>
+
+    <select id="getAllUser" resultType="com.main.tgcareer.modules.user.entity.User">
+        SELECT
+        <include refid="userColumns" />
+        FROM user a
+        <if test="limit != null">
+            LIMIT ${start*limit-limit},${limit}
+        </if>
     </select>
 
     <insert id="saveUser">
@@ -39,10 +46,12 @@
         id,
         open_id,
         pet_name,
-        college_id,
+        college,
         photo_path,
         name,
-        city_id,
+        corporation,
+        job,
+        city,
         sex,
         age,
         phone,
@@ -58,13 +67,15 @@
         #{college},
         #{photoPath},
         #{name},
+        #{corporation},
+        #{job},
         #{city},
         #{sex},
         #{age},
         #{phone},
         #{eduction},
         #{push},
-        #{expectedAnnualAalary},
+        #{expectedAnnualSalary},
         #{annualSalary},
         #{monthlySalary}
         )
@@ -77,19 +88,25 @@
             photo_path = #{photoPath},
         </if>
         <if test="petName != null">
-            petname = #{petName},
+            pet_name = #{petName},
         </if>
         <if test="college != null">
-            college_id = #{college},
+            college = #{college},
         </if>
         <if test="name != null">
             name = #{name},
         </if>
+        <if test="corporation != null">
+              corporation = #{corporation},
+         </if>
+        <if test="job != null">
+              job = #{job},
+        </if>
         <if test="city != null">
-            city_id = #{city},
+            city = #{city},
         </if>
         <if test="college != null">
-            college_id = #{college},
+            college = #{college},
         </if>
         <if test="sex != null">
             sex = #{sex},
@@ -106,8 +123,8 @@
         <if test="push != null">
             push = #{push},
         </if>
-        <if test="colexpectedAnnualAalarylege != null">
-            expected_annual_salary = #{expectedAnnualAalary},
+        <if test="expectedAnnualSalary != null">
+            expected_annual_salary = #{expectedAnnualSalary},
         </if>
         <if test="annualSalary != null">
             annual_salary = #{annualSalary},
@@ -116,7 +133,7 @@
             monthly_salary = #{monthlySalary},
         </if>
         </set>
-        WHERE id = #{id}
+        WHERE open_id = #{openid}
     </update>
 
 

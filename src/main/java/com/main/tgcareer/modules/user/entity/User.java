@@ -3,6 +3,8 @@ package com.main.tgcareer.modules.user.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 public class User {
 //    id
     @Getter @Setter private String id;
@@ -12,6 +14,10 @@ public class User {
     @Getter @Setter private String petName;
 //    name
     @Getter @Setter private String name;
+
+    @Getter @Setter private String corporation;
+
+    @Getter @Setter private String job;
 //    city
     @Getter @Setter private String city;
 
@@ -25,7 +31,7 @@ public class User {
 
     @Getter@Setter private String college;
 
-    @Getter@Setter private byte eduction;
+    @Getter@Setter private String eduction;
 
     @Getter@Setter private boolean push;
 
@@ -34,6 +40,10 @@ public class User {
     @Getter@Setter private double annualSalary;
 
     @Getter@Setter private double monthlySalary;
+
+    @Getter @Setter private Date updateTime;
+
+    @Getter @Setter private Date createTime;
 
     @Override
     public String toString(){

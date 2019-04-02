@@ -3,6 +3,9 @@ package com.main.tgcareer.modules.user.dao;
 import com.main.tgcareer.modules.user.entity.User;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
+
 @Component
 public interface UserDao {
     /**
@@ -29,5 +32,7 @@ public interface UserDao {
      * @param id
      */
     public void deleteUser(String id);
+
+    public List<User> getAllUser(Map params);
 }
 

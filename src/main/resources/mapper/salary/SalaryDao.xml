@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.main.tgcareer.modules.salary.dao.SalaryDao">
+
+    <sql id="salaryColumns">
+        a.id as id,
+        a.city as city,
+        a.job as job,
+        a.corporation as corporation,
+        a.contact as contact,
+        a.create_time as createTime,
+        a.update_time as updateTime
+    </sql>
+
+
+    <select id="getSalary" resultType="com.main.tgcareer.modules.salary.entity.Salary">
+        SELECT
+        <include refid="salaryColumns" />
+        FROM salary a
+        <where>
+            <if test="id != null">
+                a.id = #{id}
+            </if>
+            <if test="city != null">
+                a.city LIKE CONCAT('%','${city}','%')
+            </if>
+            <if test="job != null">
+                a.job LIKE CONCAT('%','${job}','%')
+            </if>
+            <if test="corporation != null">
+                a.corporation LIKE CONCAT('%','${corporation}','%')
+            </if>
+        </where>
+        ORDER BY a.update_time
+        <if test="limit != null">
+            LIMIT ${start*limit-limit},${limit}
+        </if>
+    </select>
+
+    <insert id="saveSalary">
+        INSERT INTO salary(
+        id,
+        city,
+        job,
+        corporation,
+        contact
+        ) VALUES (
+        #{id},
+        #{city},
+        #{job},
+        #{corporation},
+        #{contact}
+        )
+    </insert>
+
+    <update id="updateSalary">
+        UPDATE salary
+        <set>
+            <if test="city != null">
+                city = #{city},
+            </if>
+            <if test="job != null">
+                job = #{job},
+            </if>
+            <if test="corporation != null">
+                corporation = #{corporation},
+            </if>
+            <if test="contact != null">
+                contact = #{contact},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteSalary">
+        DELETE FROM salary
+        WHERE id = #{id}
+    </delete>
+
+
+</mapper>

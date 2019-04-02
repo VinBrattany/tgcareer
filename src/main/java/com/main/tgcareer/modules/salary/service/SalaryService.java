@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class SalaryService {
@@ -21,6 +22,7 @@ public class SalaryService {
 
     @Transactional
     public void saveSalary(Salary salary){
+        salary.setId(UUID.randomUUID().toString().replaceAll("-",""));
         salaryDao.saveSalary(salary);
     }
 
