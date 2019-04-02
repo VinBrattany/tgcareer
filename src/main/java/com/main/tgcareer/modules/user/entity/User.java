@@ -50,4 +50,5 @@ public class User {
         return "id:"+this.id+"  openid:"+this.openid+"  petName:"+this.petName
                 +"  name:"+this.name+"  city:"+this.city+"  photoPath:"+this.photoPath;
     }
+
 }
