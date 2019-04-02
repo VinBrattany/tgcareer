@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>小程序用户信息</title>
+    <link href="../static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script href="../static/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">小程序用户信息</div>
+
+    <!-- Table -->
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>姓名</th>
+        </tr>
+        <tr th:each="user :${users}">
+            <td th:text="${user.name}">王非洲</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

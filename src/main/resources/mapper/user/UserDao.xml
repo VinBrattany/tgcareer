@@ -19,7 +19,9 @@
        a.push as push,
        a.expected_annual_salary as expectedAnnualSalary,
        a.annual_salary as annualSalary,
-       a.monthly_salary as monthlySalary
+       a.monthly_salary as monthlySalary,
+       a.update_time as updateTime,
+       a.create_time as createTime
     </sql>
 
 
@@ -27,7 +29,16 @@
         SELECT
         <include refid="userColumns" />
         FROM user a
-        WHERE a.open_id = #{openid}
+        WHERE a.open_id = #{id}
+    </select>
+
+    <select id="getAllUser" resultType="com.main.tgcareer.modules.user.entity.User">
+        SELECT
+        <include refid="userColumns" />
+        FROM user a
+        <if test="limit != null">
+            LIMIT ${start*limit-limit},${limit}
+        </if>
     </select>
 
     <insert id="saveUser">
