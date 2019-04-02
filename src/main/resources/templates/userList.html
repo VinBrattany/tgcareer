@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>小程序用户信息</title>
-    <link href="../static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../static/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script th:src="@{/static/jquery-3.3.1/jquery-3.3.1.min.js}" type="text/javascript"></script>
+    <link th:href="@{/static/bootstrap-3.3.7-dist/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/static/bootstrap-3.3.7-dist/js/bootstrap.min.js}" type="text/javascript"></script>
 </head>
 <body>
 <div class="panel panel-default">
@@ -15,11 +16,29 @@
     <table class="table table-bordered table-striped">
         <tr>
             <th>姓名</th>
+            <th>职位</th>
         </tr>
-        <tr th:each="user :${users}">
+        <!--/*@thymesVar id="users" type="java.util.List"*/-->
+        <!--/*@thymesVar id="user" type="com.main.tgcareer.modules.user.entity.User"*/-->
+        <tr th:each="user: ${users}">
             <td th:text="${user.name}">王非洲</td>
+            <td th:text="${user.job}">精算师</td>
+        </tr>
+    </table>
+    <table border="0" style="margin-top:4px; margin-left: 18px">
+        <tr>
+            <td><a href="#" class="easyui-linkbutton" onclick="downloadfile();">数据导出</a></td>
+
         </tr>
     </table>
 </div>
 </body>
+<script>
+    function downloadfile(){
+        $.ajax("/tgcareer/excel"){
+
+        }
+//        window.location.href="/tgcareer/excel";
+    }
+</script>
 </html>
