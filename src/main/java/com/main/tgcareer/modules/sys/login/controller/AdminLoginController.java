@@ -9,13 +9,15 @@ import com.main.tgcareer.modules.user.entity.Admin;
 import com.main.tgcareer.modules.user.entity.User;
 import com.main.tgcareer.modules.user.service.AdminService;
 import com.main.tgcareer.modules.user.service.UserService;
+import jxl.Cell;
+import jxl.Sheet;
 import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,10 +29,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class AdminLoginController {
@@ -195,6 +194,29 @@ public class AdminLoginController {
     @RequestMapping(value = "upload",method = RequestMethod.POST)
     @ResponseBody
     public AjaxJson upload(MultipartFile file){
+
+        System.out.println(file.getOriginalFilename());
+        Workbook book  = null;
+        try {
+            book = Workbook.getWorkbook(file.getInputStream());
+            //  获得第一个工作表对象
+            Sheet sheet  =  book.getSheet( 0 );
+            for (int i = 1; i < sheet.getRows(); i++) {
+                Salary salary = new Salary();
+                    Cell[] cell  =  sheet.getRow(i);
+                    salary.setCity(cell[1].getContents());
+                    salary.setJob(cell[2].getContents());
+                    salary.setCorporation(cell[3].getContents());
+                    salary.setContact(cell[4].getContents());
+                    salaryService.saveSalary(salary);
+            }
+            book.close();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            LinkedHashMap<String,Object> map = new LinkedHashMap<>();
+            map.put("message",e.toString());
+            return Ajax.error(AjaxEnum.UNKOWN_ERROR,map);
+        }
 
         return Ajax.success();
     }

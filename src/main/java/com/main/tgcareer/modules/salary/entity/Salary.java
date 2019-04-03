@@ -18,4 +18,6 @@ public class Salary {
     @Getter @Setter private String createTime;
 
     @Getter @Setter private String updateTime;
+
+    public Salary(){};
 }
