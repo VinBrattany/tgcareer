@@ -1,5 +1,10 @@
 package com.main.tgcareer.modules.sys.login.controller;
 
+import com.main.tgcareer.common.jason.Ajax;
+import com.main.tgcareer.common.jason.AjaxEnum;
+import com.main.tgcareer.common.jason.AjaxJson;
+import com.main.tgcareer.modules.salary.entity.Salary;
+import com.main.tgcareer.modules.salary.service.SalaryService;
 import com.main.tgcareer.modules.user.entity.Admin;
 import com.main.tgcareer.modules.user.entity.User;
 import com.main.tgcareer.modules.user.service.AdminService;
@@ -13,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
@@ -33,6 +40,9 @@ public class AdminLoginController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    SalaryService salaryService;
 
     @RequestMapping(value = "login",method = RequestMethod.GET)
     public ModelAndView login(ModelAndView modelAndView){
@@ -72,8 +82,15 @@ public class AdminLoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "excel",method = RequestMethod.GET)
-    public void excel(HttpServletResponse response){
+    @RequestMapping(value = "salaryList",method = RequestMethod.GET)
+    public ModelAndView salaryList(ModelAndView modelAndView, Map params){
+        modelAndView.addObject("salaries",salaryService.getSalary(params));
+        modelAndView.setViewName("salaryList");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "download",method = RequestMethod.GET)
+    public void download(HttpServletResponse response, Map params){
         // 设置日期格式
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 //        ,@RequestBody List<User> userList
@@ -81,7 +98,6 @@ public class AdminLoginController {
 //        for (int i = 0; i < userList.size(); i++) {
 //            users.add(i,userService.getUser(userList.get(i).getId()));
 //        }
-        Map params = null;
         users = userService.getAllUser(params);
         // 创建工作表
         WritableWorkbook book = null;
@@ -174,5 +190,12 @@ public class AdminLoginController {
                 }
             }
         }
+    }
+
+    @RequestMapping(value = "upload",method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxJson upload(MultipartFile file){
+
+        return Ajax.success();
     }
 }

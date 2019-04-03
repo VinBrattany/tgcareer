@@ -32,7 +32,7 @@
                     <div class="panel-body" style="background: rgba(216,216,216,0.5);">
 
                         <!--<form th:action="@{'/login'}" method="post" th:object="${userDto}">-->
-                        <div th:action="@{/login}" method="post">
+                        <div th:action="@{/login}" th:method="post">
                             <div class="form-group form-inline" >
                                 <!--<span id="basic-addon-UserName" style="text-align: right;HEIGHT: 15px" >用户名</span>-->
                                 <label for="txtUserName" class="col-md-3 control-label"  style="text-align: right; padding-top:7px;" >
