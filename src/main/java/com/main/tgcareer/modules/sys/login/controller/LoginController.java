@@ -10,6 +10,7 @@ import com.main.tgcareer.common.web.BaseController;
 import com.main.tgcareer.modules.user.entity.User;
 import com.main.tgcareer.modules.user.service.UserService;
 import lombok.NonNull;
+import lombok.*;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
