@@ -35,10 +35,34 @@
 </body>
 <script>
     function downloadfile(){
-        $.ajax("/tgcareer/excel"){
+//        var params =
+//            [
+//                {
+//                    id: "0"
+//                },
+//                {
+//                    id: "1"
+//                }]
+//        var url = "/tgcareer/excel"
+//        $.ajax({url: url,
+//            type: "POST",
+//            data: JSON.stringify(params),
+//            contentType:"application/json",
+//            success: function(response, status, request) {
+//                var disp = request.getResponseHeader('Content-type:application/json;charset=utf-8');
+//                if (disp && disp.search('attachment') !== -1) {  //判断是否为文件
+//                    var form = $('<form method="POST" action="' + url + '">');
+//                    $.each(params, function (k, v) {
+//                        form.append($('<input type="hidden" name="' + k +
+//                            '" value="' + v + '">'));
+//                    });
+//                    $('body').append(form);
+//                    form.submit(); //自动提交
+//                }
+//            }
+//        })
+        window.location.href="/tgcareer/excel";
 
-        }
-//        window.location.href="/tgcareer/excel";
     }
 </script>
 </html>

@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +20,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -72,8 +72,17 @@ public class AdminLoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "excel",method = RequestMethod.POST)
-    public void excel(HttpServletResponse response,@RequestBody List<User> users){
+    @RequestMapping(value = "excel",method = RequestMethod.GET)
+    public void excel(HttpServletResponse response){
+        // 设置日期格式
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+//        ,@RequestBody List<User> userList
+        List<User> users = new ArrayList<>();
+//        for (int i = 0; i < userList.size(); i++) {
+//            users.add(i,userService.getUser(userList.get(i).getId()));
+//        }
+        Map params = null;
+        users = userService.getAllUser(params);
         // 创建工作表
         WritableWorkbook book = null;
         response.reset();
@@ -88,7 +97,9 @@ public class AdminLoginController {
             response.setCharacterEncoding("UTF-8");
 
             // 设置工作表的标题
-            response.setHeader("Content-Disposition", "attachment; filename=用户信息.xls");// 设置生成的文件名字
+            String fileName = "用户信息"+sf.format(new Date())+".xls";
+            fileName = new String(fileName.getBytes(), "ISO-8859-1");
+            response.setHeader("Content-Disposition", "attachment;filename="+fileName);// 设置生成的文件名字
                 os = response.getOutputStream();
 
                 // 初始化工作表
@@ -96,7 +107,7 @@ public class AdminLoginController {
 
         } catch (IOException e1) {
 
-//           logger.error("导出excel出现IO异常", e1);
+            System.out.println("导出excel出现IO异常"+e1);
 //           throw new ServiceException("导出失败", e1);
         }
         try {
@@ -126,10 +137,8 @@ public class AdminLoginController {
             sheet.addCell(new jxl.write.Label(14, 0, "更新时间"));
             sheet.addCell(new jxl.write.Label(15, 0, "创建时间"));
 
-
             // 将数据追加
             for (int i = 1; i < users.size() + 1; i++) {
-
                 sheet.addCell(new jxl.write.Label(0, i, String.valueOf(i)));// 序号从1开始
                 sheet.addCell(new jxl.write.Label(1, i, users.get(i - 1).getName()));
                 sheet.addCell(new jxl.write.Label(2, i, users.get(i - 1).getJob()));
@@ -145,9 +154,6 @@ public class AdminLoginController {
                 sheet.addCell(new jxl.write.Label(12, i, String.valueOf(users.get(i - 1).getMonthlySalary())));
                 sheet.addCell(new jxl.write.Label(13, i, users.get(i - 1).getPetName()));
 
-
-                // 设置日期格式
-                SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
                 Date updateTime = users.get(i - 1).getUpdateTime();
                 String updateStr = sf.format(updateTime);
                 sheet.addCell(new jxl.write.Label(14, i, updateStr));// 更新日期
@@ -157,14 +163,13 @@ public class AdminLoginController {
             }
             book.write();book.close();
         } catch (Exception e) {
-//                logger.error("导出excel出现异常", e);
-//                throw new ServiceException("导出失败", e);
+                System.out.println("导出excel出现异常"+e);
         } finally {
             if (null != os) {
                 try {
                     os.close();
                 } catch (IOException e) {
-//                        logger.error("关流出现异常", e);
+                    System.out.println("关流出现异常"+e);
                     e.printStackTrace();
                 }
             }
