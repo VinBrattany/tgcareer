@@ -195,7 +195,7 @@ public class AdminLoginController {
     @ResponseBody
     public AjaxJson upload(MultipartFile file){
 
-        System.out.println(file.getOriginalFilename());
+//        System.out.println(file.getOriginalFilename());
         Workbook book  = null;
         try {
             book = Workbook.getWorkbook(file.getInputStream());
