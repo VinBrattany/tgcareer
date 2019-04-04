@@ -23,11 +23,12 @@
     </tr>
     <!--/*@thymesVar id="salaries" type="java.util.List"*/-->
     <!--/*@thymesVar id="salary" type="com.main.tgcareer.modules.salary.entity.Salary"*/-->
-    <tr th:each="salary: ${salaries}">
+    <tr th:id="${salary.id}" th:each="salary: ${salaries}">
         <td th:text="${salary.city}">北京</td>
         <td th:text="${salary.job}">精算师</td>
         <td th:text="${salary.corporation}">阿里巴巴</td>
         <td th:text="${salary.contact}">12345678</td>
+        <td><button type="button" class="btn btn-danger" th:onclick="'javascript:deleteSalary(\''+${salary.id}+'\')'">删除</button></td>
     </tr>
 </table>
 </div>
@@ -64,7 +65,7 @@
             var uploadEventFile = $("#uploadEventFile").val();
             if(uploadEventFile === ''){
                 alert("请选择excel,再上传");
-            }else if(uploadEventFile.lastIndexOf(".xls")<0 && !(uploadEventFile.lastIndexOf(".xlsx")<0)){//可判断以.xls和.xlsx结尾的excel
+            }else if(uploadEventFile.lastIndexOf(".xls")<0 || !(uploadEventFile.lastIndexOf(".xlsx")<0)){//可判断以.xls结尾的excel
                 alert("只能上传Excel.xls文件");
             }else{
                 var url = '/tgcareer/upload';
@@ -80,6 +81,7 @@
                 success : function(result) {
                     if (result.code==='0'){
                         alert("excel上传成功!");
+                        location.reload(true);
                     }else {
                         alert( result.msg);
                     }
@@ -92,6 +94,11 @@
                 processData : false
             });
         };
+    }
+</script>
+<script>
+    function deleteSalary(id) {
+        console.log(id);
     }
 </script>
 </html>
