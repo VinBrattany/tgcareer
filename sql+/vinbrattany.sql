@@ -11,11 +11,24 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 31/03/2019 16:57:17
+ Date: 09/04/2019 10:17:49
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `id` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for candidate
@@ -28,6 +41,18 @@ CREATE TABLE `candidate` (
   `sex` tinyint(1) NOT NULL,
   `age` tinyint(1) NOT NULL,
   `annual_salary` decimal(7,2) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Table structure for corporation
+-- ----------------------------
+DROP TABLE IF EXISTS `corporation`;
+CREATE TABLE `corporation` (
+  `id` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
