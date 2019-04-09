@@ -10,52 +10,50 @@
     <script th:src="@{/static/jquery-3.3.1/jquery-3.3.1.min.js}" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/static/bootstrap-3.3.7-dist/css/bootstrap.min.css}" />
     <script th:src="@{/static/bootstrap-3.3.7-dist/js/bootstrap.min.js}" type="text/javascript"></script>
+
+    <style type="text/css">
+        body{
+            background:url("img/loginBg.jpg") no-repeat;
+            background-size: 100%;
+        }
+    </style>
 </head>
 
-<body style="background: url('img/loginBg.jpg') no-repeat;background-size: cover;background-size:100%; position: absolute;attachment: fixed;" >
-<form >
-    <!-- common 的 定义好的 header模板 引用  参数 title  -->
-    <!--
-     Bootstrap的容器Class使用
-     container ：用于固定宽度并支持响应式布局的容器
-     container-fluid ：用于 100% 宽度，占据全部视口（viewport）的容器。
-    -->
-    <div class="container" th:replace="common :: header('login') " style=" margin-top: 150px;"></div>
-    <div class="container" style="margin-left: 600px">
-        <div class="row" style="margin-left: auto;">
-            <div class="col-md-4 col-md-offset-4" >
-                <div class="panel panel-default" style="background: rgba(216,216,216,0.5);">
-                    <div class="panel-heading" style="background: rgba(216,216,216,0.5);">
-                        <h3 class="panel-title" style="font-weight: bold">后台管理登录</h3>
-                    </div>
+<body >
+    <form th:action="@{/login}" method="post">
+        <div class="container"  style=" margin-top: 150px;"></div>
+        <div class="container" style="margin-left: 600px;"  >
+            <div class="row" style="margin-left: auto;">
+                <div class="col-md-4 col-md-offset-4" >
+                    <div class="panel panel-default" style="background: rgba(216,216,216,0.5);">
+                        <div class="panel-heading" style="background: rgba(216,216,216,0.5);">
+                            <h3 class="panel-title" style="font-weight: bold">后台管理登录</h3>
+                        </div>
 
-                    <div class="panel-body" style="background: rgba(216,216,216,0.5);">
+                        <div class="panel-body" style="background: rgba(216,216,216,0.5);">
+                            <div>
+                                <!--/*@thymesVar id="error" type=""*/-->
+                                <span id="basic-addon0">&nbsp;</span>
+                                <span style="font-size: 12px;color: red" th:text="${error}" aria-describedby="basic-addon0"></span>
 
-                        <!--<form th:action="@{'/login'}" method="post" th:object="${userDto}">-->
-                        <div th:action="@{/login}" th:method="post">
-                            <div class="form-group form-inline" >
-                                <!--<span id="basic-addon-UserName" style="text-align: right;HEIGHT: 15px" >用户名</span>-->
-                                <label for="txtUserName" class="col-md-3 control-label"  style="text-align: right; padding-top:7px;" >
-                                    用户名
-                                </label>
-                                <div class="col-md-9" >
-                                    <input type="text" class="col-md-9 form-control" id="txtUserName"
-                                           placeholder="请输入用户名" th:field="*{userName}"
-                                           required="required" />
-                                </div>
                             </div>
 
+                            <div class="form-group form-inline"  style="padding-top:5px;">
+                                <span id="basic-addon1" class="col-md-3 control-label"  style="text-align: right; padding-top:7px;">
+                                    用户名
+                                </span>
+                                <div class="col-md-9" >
+                                    <input id="user_name" name="name" type="text" class="col-md-9 form-control" placeholder="输入用户名" aria-describedby="basic-addon1" />
+                                </div>
+                            </div>
 
                             <div class="form-group form-inline" style="padding-top:45px;">
-
-                                <label for="txtUserPwd" class="col-sm-3 control-label"
-                                       style="text-align: right;padding-top:7px">密码</label>
+                                <span id="basic-addon2" class="col-sm-3 control-label"
+                                      style="text-align: right;padding-top:7px">密码</span>
                                 <div class="col-md-9" >
-                                    <input type="password" class="col-sm-9 form-control" id="txtUserPwd"
-                                           placeholder="请输入密码" th:field="*{password}" />
+                                    <input id="password" name="password" type="password" class="col-md-9 form-control" placeholder="输入密码" aria-describedby="basic-addon2" />
                                 </div>
                             </div>
-
 
                             <div class="form-group">
                                 <div class="col-md-offset-3 col-md-9" >
@@ -65,53 +63,18 @@
                                 </div>
                             </div>
 
-
-                            <!--<div class="form-group" >-->
                             <div class="form-group">
 
                                 <div class="col-md-offset-3 col-md-5" style="width: 80%; margin-top: 5px;margin-left:30px; margin-right:20px;float:left;" >
-                                    <button class="btn btn-primary btn-block" type="submit" name="action"
-                                            value="login"  >登录</button>
+                                    <button class="btn btn-primary btn-block" type="submit" style="width:240px;" value="login" name="action">登 录</button>
                                 </div>
-
-                                <!--<div class="col-md-offset-3 col-md-5" style="width: 35%; margin-top: 5px; margin-left:0px;float:left;">-->
-                                    <!--<button class="btn btn-primary btn-block" type="button" name="action" value="register" >注册</button>-->
-                                <!--</div>-->
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- common 的 定义好的 fotter模板引用  无参  -->
-    <div class="container" th:replace="common :: footer"></div>
-
-</form>
-
-<!--<form th:action="@{/login}" method="post">-->
-    <!--<div>-->
-        <!--&lt;!&ndash;/*@thymesVar id="error" type=""*/&ndash;&gt;-->
-        <!--<span id="basic-addon0">&nbsp;</span>-->
-        <!--<span style="font-size: 12px;color: red" th:text="${error}" aria-describedby="basic-addon0"></span>-->
-        <!--<br />-->
-    <!--</div>-->
-
-    <!--<div>-->
-        <!--<span id="basic-addon1">@</span>-->
-        <!--<input id="user_name" name="name" type="text" placeholder="用户名" aria-describedby="basic-addon1" />-->
-
-    <!--</div>-->
-    <!--<br />-->
-    <!--<div>-->
-        <!--<span id="basic-addon2">@</span>-->
-        <!--<input id="password" name="password" type="password" placeholder="密码" aria-describedby="basic-addon2" />-->
-    <!--</div>-->
-    <!--<br />-->
-    <!--<button type="submit" style="width:190px;">登 录</button>-->
-
-<!--</form>-->
+    </form>
 </body>
 </html>
