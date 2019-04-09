@@ -11,15 +11,16 @@
 <div class="panel panel-default">
 
 <!-- Default panel contents -->
-<div class="panel-heading">小程序薪资信息</div>
+<div class="panel-heading text-center">小程序薪资信息</div>
 
 <!-- Table -->
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped text-center ">
     <tr>
-        <th>城市</th>
-        <th>职位</th>
-        <th>公司</th>
-        <th>联系方式</th>
+        <th class="text-center">城市</th>
+        <th class="text-center">职位</th>
+        <th class="text-center">公司</th>
+        <th class="text-center">联系方式</th>
+        <th class="text-center">数据操作</th>
     </tr>
     <!--/*@thymesVar id="salaries" type="java.util.List"*/-->
     <!--/*@thymesVar id="salary" type="com.main.tgcareer.modules.salary.entity.Salary"*/-->
@@ -28,7 +29,7 @@
         <td th:text="${salary.job}">精算师</td>
         <td th:text="${salary.corporation}">阿里巴巴</td>
         <td th:text="${salary.contact}">12345678</td>
-        <td><button type="button" class="btn btn-danger" th:onclick="'javascript:deleteSalary(\''+${salary.id}+'\')'">删除</button></td>
+        <td><button type="button" class="btn btn-info" th:onclick="'javascript:changeSalary(\''+${salary.id}+'\')'">修改</button><button type="button" class="btn btn-danger" th:onclick="'javascript:deleteSalary(\''+${salary.id}+'\')'">删除</button></td>
     </tr>
 </table>
 </div>
@@ -94,11 +95,17 @@
                 processData : false
             });
         };
-    }
-</script>
-<script>
+    };
     function deleteSalary(id) {
         console.log(id);
     }
+    function changeSalary(id) {
+        console.log(id);
+    }
 </script>
+<style>
+    .table tbody tr td{
+        vertical-align: middle;
+    }
+</style>
 </html>

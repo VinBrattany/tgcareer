@@ -22,7 +22,7 @@ public class WebAppConfig extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
 //        registry.addInterceptor(new TokenInterceptor()).addPathPatterns("/**")
-//                .excludePathPatterns("/sys/login/**","/college/college/**","/user/user/**","/stat/**");
+//                .excludePathPatterns("/sys/login/**","/login");
         super.addInterceptors(registry);
     }
 
