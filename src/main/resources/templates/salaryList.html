@@ -97,7 +97,19 @@
         };
     };
     function deleteSalary(id) {
-        console.log(id);
+        $.ajax({
+            url: '/tgcareer/salary/salary' + id,
+            type: "DELETE",
+            contentType: "application/json",//设置请求参数类型为json字符串
+//            data: JSON.stringify(jsonstr),//将json对象转换成json字符串发送
+            dataType: "json",
+            success: function (result) {
+                    if (result.code==='0'){
+                        alert("删除成功!");
+                        location.reload(true);
+                    }
+            }
+        });
     }
     function changeSalary(id) {
         console.log(id);
