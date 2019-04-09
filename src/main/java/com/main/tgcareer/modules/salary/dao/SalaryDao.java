@@ -16,4 +16,6 @@ public interface SalaryDao {
     public void updateSalary(Salary salary);
 
     public void deleteSalary(String id);
+
+    public List<String> getCorporation();
 }

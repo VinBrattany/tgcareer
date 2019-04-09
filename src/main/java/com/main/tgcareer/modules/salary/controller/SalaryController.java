@@ -41,4 +41,11 @@ public class SalaryController {
         salaryService.deleteSalary(id);
         return Ajax.success();
     }
+
+    @RequestMapping(method = RequestMethod.GET,value = "cor")
+    public AjaxJson getCorporation(){
+        LinkedHashMap<String,Object> maps = new LinkedHashMap<>();
+        maps.put("data",salaryService.getCorporation());
+        return Ajax.success(maps);
+    }
 }

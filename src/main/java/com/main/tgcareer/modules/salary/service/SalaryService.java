@@ -35,4 +35,8 @@ public class SalaryService {
     public void deleteSalary(String id){
         salaryDao.deleteSalary(id);
     }
+
+    public List<String> getCorporation(){
+        return salaryDao.getCorporation();
+    }
 }
