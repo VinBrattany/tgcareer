@@ -41,44 +41,6 @@
         <li th:class="${indexPage==totalPage}?'disabled' : ''" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+1}}">下一页</a></li>
     </ul><br>
     </div>
-    <table class="text-center" border="0" style="margin-top:4px; margin-left: 18px">
-        <tr>
-            <td><a href="#" class="easyui-linkbutton" onclick="downloadFile();">数据导出</a></td>
-
-        </tr>
-    </table>
 </div>
 </body>
-<script>
-    function downloadFile(){
-//        var params =
-//            [
-//                {
-//                    id: "0"
-//                },
-//                {
-//                    id: "1"
-//                }]
-//        var url = "/tgcareer/excel"
-//        $.ajax({url: url,
-//            type: "POST",
-//            data: JSON.stringify(params),
-//            contentType:"application/json",
-//            success: function(response, status, request) {
-//                var disp = request.getResponseHeader('Content-type:application/json;charset=utf-8');
-//                if (disp && disp.search('attachment') !== -1) {  //判断是否为文件
-//                    var form = $('<form method="POST" action="' + url + '">');
-//                    $.each(params, function (k, v) {
-//                        form.append($('<input type="hidden" name="' + k +
-//                            '" value="' + v + '">'));
-//                    });
-//                    $('body').append(form);
-//                    form.submit(); //自动提交
-//                }
-//            }
-//        })
-        window.location.href="/tgcareer/download";
-
-    }
-</script>
 </html>

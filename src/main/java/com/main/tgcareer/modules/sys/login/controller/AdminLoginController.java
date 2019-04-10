@@ -74,6 +74,18 @@ public class AdminLoginController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "salaryPost",method = RequestMethod.GET)
+    public ModelAndView salaryPost(ModelAndView modelAndView){
+        modelAndView.setViewName("salaryPost");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "userDownload",method = RequestMethod.GET)
+    public ModelAndView userDownload(ModelAndView modelAndView){
+        modelAndView.setViewName("userDownload");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "userList",method = RequestMethod.GET)
     public ModelAndView userList(ModelAndView modelAndView, @RequestParam(defaultValue = "1") Integer indexPage){
         Map<String,Integer> params = new HashMap<>();

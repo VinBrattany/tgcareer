@@ -29,7 +29,6 @@
         <td th:text="${salary.job}">精算师</td>
         <td th:text="${salary.corporation}">阿里巴巴</td>
         <td th:text="${salary.contact}">12345678</td>
-        <!--<td><button type="button" class="btn btn-info" th:onclick="'javascript:changeSalary(\''+${salary.id}+'\')'">修改</button><button type="button" class="btn btn-danger" th:onclick="'javascript:deleteSalary(\''+${salary.id}+'\')'">删除</button></td>-->
         <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#changeModal" th:onclick="'javascript:Values(\''+${salary.id}+'\',\''+${salary.city}+'\',\''+${salary.job}+'\',\''+${salary.corporation}+'\',\''+${salary.contact}+'\')'">修改
         </button><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" th:onclick="'javascript:SetId(\''+${salary.id}+'\')'">删除</button></td>
     </tr>
@@ -50,14 +49,6 @@
         <li th:class="${indexPage==totalPage}?'disabled' : ''" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+1}}">下一页</a></li>
     </ul><br>
 </div>
-</div>
-<div class="text-center">
-<form enctype="multipart/form-data" id="excelUpload"  th:action="@{/upload}" method="post" class="form-horizontal">
-    <button id="uploadEventBtn" type="button" >选择文件</button>
-    <!--<input type="file" name="file" id="uploadEventFile">-->
-    <input id="uploadEventPath"  disabled="disabled"  type="text" placeholder="请选择excel表"  >
-</form>
-<button type="button"  onclick="project.uploadBtn()" >上传</button>
 </div>
 <div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="changeModalLabel">
     <div class="modal-dialog" role="document">
@@ -142,59 +133,6 @@
         $('#corporation').val(corporation);
         $('#contact').val(contact);
     }
-    var project;
-    $(function(){
-        project = new Project();
-        project.init();
-    });
-
-    var Project = function(){
-
-        this.init = function(){
-
-            //模拟上传excel
-            $("#uploadEventBtn").unbind("click").bind("click",function(){
-                $("#uploadEventFile").click();
-            });
-            $("#uploadEventFile").bind("change",function(){
-                $("#uploadEventPath").attr("value",$("#uploadEventFile").val());
-            });
-        };
-        //点击上传按钮
-        this.uploadBtn = function(){
-            var uploadEventFile = $("#uploadEventFile").val();
-            if(uploadEventFile === ''){
-                alert("请选择excel,再上传");
-            }else if(uploadEventFile.lastIndexOf(".xls")<0 || !(uploadEventFile.lastIndexOf(".xlsx")<0)){//可判断以.xls结尾的excel
-                alert("只能上传Excel.xls文件");
-            }else{
-                var url = '/tgcareer/upload';
-                var formData = new FormData($('form')[0]);
-                project.sendAjaxRequest(url,formData);
-            }
-        };
-        this.sendAjaxRequest = function(url,data){
-            $.ajax({
-                url : url,
-                type:"post",
-                data : data,
-                success : function(result) {
-                    if (result.code==='0'){
-                        alert("excel上传成功!");
-                        location.reload(true);
-                    }else {
-                        alert( result.msg);
-                    }
-                },
-                error : function() {
-                    alert( "excel上传失败");
-                },
-                cache : false,
-                contentType : false,
-                processData : false
-            });
-        };
-    };
     function deleteSalary() {
         $.ajax({
             url: '/tgcareer/salary/salary' + $('#deleteId').val(),
@@ -204,7 +142,7 @@
             dataType: "json",
             success: function (result) {
                     if (result.code==='0'){
-                        alert("删除成功!");
+//                        alert("删除成功!");
                         location.reload(true);
                     }
             }
@@ -226,7 +164,7 @@
             dataType: "json",
             success: function (result) {
                 if (result.code==='0'){
-                    alert("更新成功!");
+//                    alert("更新成功!");
                     location.reload(true);
                 }
             }
