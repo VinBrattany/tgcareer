@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -74,15 +75,25 @@ public class AdminLoginController {
     }
 
     @RequestMapping(value = "userList",method = RequestMethod.GET)
-    public ModelAndView userList(ModelAndView modelAndView, Map params){
+    public ModelAndView userList(ModelAndView modelAndView, @RequestParam(defaultValue = "1") Integer indexPage){
+        Map<String,Integer> params = new HashMap<>();
+        params.put("start",indexPage);
+        params.put("limit",10);
         modelAndView.addObject("users",userService.getAllUser(params));
+        modelAndView.addObject("totalPage",Math.ceil(userService.getAllUser(null).size()/10.0));
+        modelAndView.addObject("indexPage",indexPage);
         modelAndView.setViewName("userList");
         return modelAndView;
     }
 
     @RequestMapping(value = "salaryList",method = RequestMethod.GET)
-    public ModelAndView salaryList(ModelAndView modelAndView, Map params){
+    public ModelAndView salaryList(ModelAndView modelAndView, @RequestParam(defaultValue = "1") Integer indexPage){
+        Map<String,Integer> params = new HashMap<>();
+        params.put("start",indexPage);
+        params.put("limit",10);
         modelAndView.addObject("salaries",salaryService.getSalary(params));
+        modelAndView.addObject("totalPage",Math.ceil(salaryService.getSalary(null).size()/10.0));
+        modelAndView.addObject("indexPage",indexPage);
         modelAndView.setViewName("salaryList");
         return modelAndView;
     }

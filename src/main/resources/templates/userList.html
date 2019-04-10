@@ -21,11 +21,27 @@
         <!--/*@thymesVar id="users" type="java.util.List"*/-->
         <!--/*@thymesVar id="user" type="com.main.tgcareer.modules.user.entity.User"*/-->
         <tr th:each="user: ${users}">
-            <td th:text="${user.name}">王非洲</td>
+            <td th:text="${user.name}">王</td>
             <td th:text="${user.job}">精算师</td>
         </tr>
     </table>
-    <table border="0" style="margin-top:4px; margin-left: 18px">
+    <div class="text-center">
+    <ul class="pagination pagination-lg" >
+        <!--/*@thymesVar id="indexPage" type="java.lang.Integer"*/-->
+        <!--/*@thymesVar id="totalPage" type="java.lang.Integer"*/-->
+        <li th:class="${indexPage==1}?'disabled' : ''"><a th:href="@{'/salaryList?indexPage=' + ${indexPage-1}}">上一页</a></li>
+        <li th:if="${indexPage >=4}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage-3}}" th:text="${indexPage -3}" >1</a></li>
+        <li th:if="${indexPage >=3}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage-2}}" th:text="${indexPage -2}" >1</a></li>
+        <li th:if="${indexPage >=2}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage-1}}" th:text="${indexPage -1}" >1</a></li>
+        <li class="active"><a href="#" th:text="${indexPage}" >1</a></li>
+        <li th:if="${indexPage+1 <=totalPage}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+1}}" th:text="${indexPage +1}" >1</a></li>
+        <li th:if="${indexPage+2 <=totalPage}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+2}}" th:text="${indexPage +2}" >1</a></li>
+        <li th:if="${indexPage+3 <=totalPage}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+3}}" th:text="${indexPage +3}" >1</a></li>
+
+        <li th:class="${indexPage==totalPage}?'disabled' : ''" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+1}}">下一页</a></li>
+    </ul><br>
+    </div>
+    <table class="text-center" border="0" style="margin-top:4px; margin-left: 18px">
         <tr>
             <td><a href="#" class="easyui-linkbutton" onclick="downloadFile();">数据导出</a></td>
 

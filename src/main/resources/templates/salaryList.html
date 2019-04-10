@@ -29,20 +29,119 @@
         <td th:text="${salary.job}">精算师</td>
         <td th:text="${salary.corporation}">阿里巴巴</td>
         <td th:text="${salary.contact}">12345678</td>
-        <td><button type="button" class="btn btn-info" th:onclick="'javascript:changeSalary(\''+${salary.id}+'\')'">修改</button><button type="button" class="btn btn-danger" th:onclick="'javascript:deleteSalary(\''+${salary.id}+'\')'">删除</button></td>
+        <!--<td><button type="button" class="btn btn-info" th:onclick="'javascript:changeSalary(\''+${salary.id}+'\')'">修改</button><button type="button" class="btn btn-danger" th:onclick="'javascript:deleteSalary(\''+${salary.id}+'\')'">删除</button></td>-->
+        <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#changeModal" th:onclick="'javascript:Values(\''+${salary.id}+'\',\''+${salary.city}+'\',\''+${salary.job}+'\',\''+${salary.corporation}+'\',\''+${salary.contact}+'\')'">修改
+        </button><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" th:onclick="'javascript:SetId(\''+${salary.id}+'\')'">删除</button></td>
     </tr>
 </table>
+<div class="text-center">
+    <ul class="pagination pagination-lg" >
+        <!--/*@thymesVar id="indexPage" type="java.lang.Integer"*/-->
+        <!--/*@thymesVar id="totalPage" type="java.lang.Integer"*/-->
+        <li th:class="${indexPage==1}?'disabled' : ''"><a th:href="@{'/salaryList?indexPage=' + ${indexPage-1}}">上一页</a></li>
+        <li th:if="${indexPage >=4}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage-3}}" th:text="${indexPage -3}" >1</a></li>
+        <li th:if="${indexPage >=3}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage-2}}" th:text="${indexPage -2}" >1</a></li>
+        <li th:if="${indexPage >=2}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage-1}}" th:text="${indexPage -1}" >1</a></li>
+        <li class="active"><a href="#" th:text="${indexPage}" >1</a></li>
+        <li th:if="${indexPage+1 <=totalPage}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+1}}" th:text="${indexPage +1}" >1</a></li>
+        <li th:if="${indexPage+2 <=totalPage}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+2}}" th:text="${indexPage +2}" >1</a></li>
+        <li th:if="${indexPage+3 <=totalPage}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+3}}" th:text="${indexPage +3}" >1</a></li>
+
+        <li th:class="${indexPage==totalPage}?'disabled' : ''" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+1}}">下一页</a></li>
+    </ul><br>
 </div>
-<div>
+</div>
+<div class="text-center">
 <form enctype="multipart/form-data" id="excelUpload"  th:action="@{/upload}" method="post" class="form-horizontal">
     <button id="uploadEventBtn" type="button" >选择文件</button>
-    <input type="file" name="file" id="uploadEventFile">
+    <!--<input type="file" name="file" id="uploadEventFile">-->
     <input id="uploadEventPath"  disabled="disabled"  type="text" placeholder="请选择excel表"  >
 </form>
 <button type="button"  onclick="project.uploadBtn()" >上传</button>
 </div>
+<div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="changeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">薪资信息修改</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="input-group">
+                        <input id="id" type="hidden" class="form-control" value="">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">城市</span>
+                        <input type="text" id="city" class="form-control" value="">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">职位</span>
+                        <input type="text" id="job" class="form-control" value="">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">公司</span>
+                        <input type="text" id="corporation" class="form-control" value="">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">联系方式</span>
+                        <input type="text" id="contact" class="form-control" value="">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        th:onclick="'javascript:changeSalary()'">确认修改</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ModalLabel">薪资信息删除</h4>
+            </div>
+            <input id="deleteId" type="hidden" value="">
+            <div class="modal-body text-center">
+                <button type="button" class="btn btn-danger"
+                        th:onclick="'javascript:deleteSalary()'">确认删除</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script type="text/javascript">
+    $('#changeModal').on('show.bs.modal', function (e) {
+        // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
+        $(this).css('display', 'block');
+        var modalHeight=$(window).height() / 2 - $('#changeModal .modal-dialog').height() / 2;
+        $(this).find('.modal-dialog').css({
+            'margin-top': modalHeight
+        });
+    });
+    $('#deleteModal').on('show.bs.modal', function () {
+//        $('#myInput').focus()
+        $(this).css('display', 'block');
+        var modalHeight=$(window).height() / 2 - $('#deleteModal .modal-dialog').height() / 2;
+        $(this).find('.modal-dialog').css({
+            'margin-top': modalHeight
+        });
+    });
+    function SetId(id) {
+        $('#deleteId').val(id);
+    }
+    function Values(id,city,job,corporation,contact) {
+        $('#id').val(id);
+        $('#city').val(city);
+        $('#job').val(job);
+        $('#corporation').val(corporation);
+        $('#contact').val(contact);
+    }
     var project;
     $(function(){
         project = new Project();
@@ -96,9 +195,9 @@
             });
         };
     };
-    function deleteSalary(id) {
+    function deleteSalary() {
         $.ajax({
-            url: '/tgcareer/salary/salary' + id,
+            url: '/tgcareer/salary/salary' + $('#deleteId').val(),
             type: "DELETE",
             contentType: "application/json",//设置请求参数类型为json字符串
 //            data: JSON.stringify(jsonstr),//将json对象转换成json字符串发送
@@ -111,8 +210,27 @@
             }
         });
     }
-    function changeSalary(id) {
-        console.log(id);
+    function changeSalary() {
+        var data = {
+            id: $('#id').val(),
+            city: $('#city').val(),
+            job: $('#job').val(),
+            corporation: $('#corporation').val(),
+            contact: $('#contact').val()
+        }
+        $.ajax({
+            url: '/tgcareer/salary/salary',
+            type: "PUT",
+            contentType: "application/json",//设置请求参数类型为json字符串
+            data: JSON.stringify(data),//将json对象转换成json字符串发送
+            dataType: "json",
+            success: function (result) {
+                if (result.code==='0'){
+                    alert("更新成功!");
+                    location.reload(true);
+                }
+            }
+        });
     }
 </script>
 <style>
