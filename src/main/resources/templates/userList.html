@@ -17,12 +17,40 @@
         <tr>
             <th>姓名</th>
             <th>职位</th>
+            <th>公司</th>
+            <th>城市</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>电话</th>
+            <th>大学</th>
+            <th>学历</th>
+            <th>期望年薪</th>
+            <th>年薪</th>
+            <th>月薪</th>
+            <th>资料更新时间</th>
+            <th>创建时间</th>
+            <th>推送</th>
         </tr>
         <!--/*@thymesVar id="users" type="java.util.List"*/-->
         <!--/*@thymesVar id="user" type="com.main.tgcareer.modules.user.entity.User"*/-->
         <tr th:each="user: ${users}">
             <td th:text="${user.name}">王</td>
             <td th:text="${user.job}">精算师</td>
+            <td th:text="${user.corporation}">华为</td>
+            <td th:text="${user.city}">北京</td>
+            <td th:if="${user.sex eq true}">男</td>
+            <td th:if="${user.sex eq false}">女</td>
+            <td th:text="${user.age}">20</td>
+            <td th:text="${user.phone}">123</td>
+            <td th:text="${user.college}">清华</td>
+            <td th:text="${user.eduction}">本科</td>
+            <td th:text="${user.expectedAnnualSalary}+'K'">12K</td>
+            <td th:text="${user.annualSalary}+'K'">10K</td>
+            <td th:text="${user.monthlySalary}">1K</td>
+            <td th:text="${#dates.format(user.updateTime,'yyyy-MM-dd')}">资料更新时间</td>
+            <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">创建时间</td>
+            <td th:if="${user.push} eq true">是</td>
+            <td th:if="${user.push} eq false">否</td>
         </tr>
     </table>
     <div class="text-center">
