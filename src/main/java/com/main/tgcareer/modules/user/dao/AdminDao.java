@@ -15,4 +15,6 @@ public interface AdminDao {
     public void updateAdmin(Admin admin);
 
     public void deleteAdmin(String id);
+
+    public Admin getAdminById(String id);
 }

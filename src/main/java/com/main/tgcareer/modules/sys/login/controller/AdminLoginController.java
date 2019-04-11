@@ -19,10 +19,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -93,8 +90,8 @@ public class AdminLoginController {
     }
 
     @RequestMapping(value = "index",method = RequestMethod.GET)
-    public ModelAndView index(ModelAndView modelAndView, @RequestParam Admin admin, @RequestParam String token){
-        modelAndView.addObject("userName",adminService.getAdmin(admin).getName());
+    public ModelAndView index(ModelAndView modelAndView, @RequestParam String id, @RequestParam String token){
+        modelAndView.addObject("userName",adminService.getAdminById(id).getName());
         modelAndView.addObject("token",token);
         modelAndView.setViewName("index");
         return modelAndView;

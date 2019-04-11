@@ -19,6 +19,13 @@
         AND a.password = #{password}
     </select>
 
+    <select id="getAdminById" resultType="com.main.tgcareer.modules.user.entity.Admin">
+        SELECT
+        <include refid="adminColumns" />
+        FROM admin a
+        WHERE a.id = #{id}
+    </select>
+
     <insert id="saveAdmin">
         INSERT INTO admin(
         id,

@@ -37,16 +37,16 @@
         <ul class="nav nav-stacked nav-pills">
             <!--/*@thymesVar id="token" type="java.lang.String"*/-->
             <li role="presentation">
-                <a th:href="@{'/salaryList?token='+${token}}" target="mainFrame" >薪资列表</a>
+                <a th:href="@{/salaryList}" target="mainFrame" >薪资列表</a>
             </li>
             <li role="presentation">
-                <a th:href="@{'/userList?token='+${token}}" target="mainFrame">用户列表</a>
+                <a th:href="@{userList}" target="mainFrame">用户列表</a>
             </li>
             <li role="presentation">
-                <a th:href="@{'/salaryPost?token='+${token}}" target="mainFrame">薪资上传</a>
+                <a th:href="@{/salaryPost}" target="mainFrame">薪资上传</a>
             </li>
             <li role="presentation">
-                <a th:href="@{'/userDownload?token='+${token}}" target="mainFrame">用户下载</a>
+                <a th:href="@{/userDownload}" target="mainFrame">用户下载</a>
             </li>
             <!-- 开始 -->
             <!--<li class="dropdown">-->
@@ -79,7 +79,8 @@
     <div class="splitter"></div>
     <!-- 正文内容部分 -->
     <div class="pageContent">
-        <iframe src="salaryList.html" id="mainFrame" name="mainFrame"
+        <!--/*@thymesVar id="token" type="java.lang.String"*/-->
+        <iframe th:src="@{/salaryList}" id="mainFrame" name="mainFrame"
                 frameborder="0" width="100%"  height="100%">
         </iframe>
     </div>

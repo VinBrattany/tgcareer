@@ -26,4 +26,8 @@ public class AdminService {
     public void deleteAdmin(String id){
         adminDao.deleteAdmin(id);
     }
+
+    public Admin getAdminById(String id){
+        return adminDao.getAdminById(id);
+    }
 }
