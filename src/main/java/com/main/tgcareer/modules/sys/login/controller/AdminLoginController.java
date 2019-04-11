@@ -86,14 +86,16 @@ public class AdminLoginController {
         }
         redisService.put(token, "1", Time);
         redisService.put(admin.getId(), token, Time);
-        modelAndView.addObject("userName",admin.getName());
+        modelAndView.addObject("id",admin.getId());
         modelAndView.addObject("token",token);
         modelAndView.setViewName("redirect:index");
         return modelAndView;
     }
 
     @RequestMapping(value = "index",method = RequestMethod.GET)
-    public ModelAndView index(ModelAndView modelAndView){
+    public ModelAndView index(ModelAndView modelAndView, @RequestParam Admin admin, @RequestParam String token){
+        modelAndView.addObject("userName",adminService.getAdmin(admin).getName());
+        modelAndView.addObject("token",token);
         modelAndView.setViewName("index");
         return modelAndView;
     }

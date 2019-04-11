@@ -21,8 +21,8 @@ public class WebAppConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-//        registry.addInterceptor(new TokenInterceptor()).addPathPatterns("/**")
-//                .excludePathPatterns("/sys/login/**","/login");
+        registry.addInterceptor(new TokenInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/sys/login/**","/login","/static/**");
         super.addInterceptors(registry);
     }
 
