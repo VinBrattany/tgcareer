@@ -21,7 +21,8 @@
                     <a href="#">当前用户：<span class="badge" th:text="${userName}">zzz</span></a>
                 </li>
                 <li>
-                    <a href="login.html">
+                    <!--/*@thymesVar id="token" type="java.lang.String"*/-->
+                    <a th:href="@{'/logout?token='+${token}}">
                         <span class="glyphicon glyphicon-lock"></span>退出登录</a>
                 </li>
             </ul>
@@ -34,17 +35,18 @@
     <!-- 左侧导航栏 -->
     <div class="pageSidebar">
         <ul class="nav nav-stacked nav-pills">
+            <!--/*@thymesVar id="token" type="java.lang.String"*/-->
             <li role="presentation">
-                <a href="salaryList.html" target="mainFrame" >薪资列表</a>
+                <a th:href="@{'/salaryList?token='+${token}}" target="mainFrame" >薪资列表</a>
             </li>
             <li role="presentation">
-                <a href="userList.html" target="mainFrame">用户列表</a>
+                <a th:href="@{'/userList?token='+${token}}" target="mainFrame">用户列表</a>
             </li>
             <li role="presentation">
-                <a href="salaryPost.html" target="mainFrame">薪资上传</a>
+                <a th:href="@{'/salaryPost?token='+${token}}" target="mainFrame">薪资上传</a>
             </li>
             <li role="presentation">
-                <a href="userDownload.html" target="mainFrame">用户下载</a>
+                <a th:href="@{'/userDownload?token='+${token}}" target="mainFrame">用户下载</a>
             </li>
             <!-- 开始 -->
             <!--<li class="dropdown">-->

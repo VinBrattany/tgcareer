@@ -3,6 +3,7 @@ package com.main.tgcareer.modules.sys.login.controller;
 import com.main.tgcareer.common.jason.Ajax;
 import com.main.tgcareer.common.jason.AjaxEnum;
 import com.main.tgcareer.common.jason.AjaxJson;
+import com.main.tgcareer.common.redis.RedisServiceImpl;
 import com.main.tgcareer.modules.salary.entity.Salary;
 import com.main.tgcareer.modules.salary.service.SalaryService;
 import com.main.tgcareer.modules.user.entity.Admin;
@@ -14,6 +15,7 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -43,9 +45,23 @@ public class AdminLoginController {
     @Autowired
     SalaryService salaryService;
 
+    @Autowired
+    RedisServiceImpl redisService;
+
+    private static long Time = 86400;//一天
+
     @RequestMapping(value = "login",method = RequestMethod.GET)
     public ModelAndView login(ModelAndView modelAndView){
         modelAndView.setViewName("login");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "logout",method = RequestMethod.GET)
+    public ModelAndView logout(ModelAndView modelAndView,@RequestParam String token){
+        if (redisService.isKeyExists(token)){
+            redisService.remove(token);
+        }
+        modelAndView.setViewName("redirect:login");
         return modelAndView;
     }
 
@@ -63,8 +79,16 @@ public class AdminLoginController {
             modelAndView.setViewName("login");
             return modelAndView;
         }
+        String token = DigestUtils.md5Hex(admin.getId()+System.currentTimeMillis());
+        if (redisService.isKeyExists(admin.getId()) && redisService.isKeyExists(redisService.get(admin.getId()).toString())){
+            redisService.remove(redisService.get(admin.getId()).toString());
+            redisService.remove(admin.getId());
+        }
+        redisService.put(token, "1", Time);
+        redisService.put(admin.getId(), token, Time);
         modelAndView.addObject("userName",admin.getName());
-        modelAndView.setViewName("index");
+        modelAndView.addObject("token",token);
+        modelAndView.setViewName("redirect:index");
         return modelAndView;
     }
 

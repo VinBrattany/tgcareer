@@ -46,7 +46,7 @@
             <td th:text="${user.eduction}">本科</td>
             <td th:text="${user.expectedAnnualSalary}+'K'">12K</td>
             <td th:text="${user.annualSalary}+'K'">10K</td>
-            <td th:text="${user.monthlySalary}">1K</td>
+            <td th:text="${user.monthlySalary}+'K'">1K</td>
             <td th:text="${#dates.format(user.updateTime,'yyyy-MM-dd')}">资料更新时间</td>
             <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">创建时间</td>
             <td th:if="${user.push} eq true">是</td>

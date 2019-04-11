@@ -10,6 +10,6 @@ public class RedisServiceImpl extends AbstractRedisService<Object> {
 
     @Override
     protected String getRedisKey() {
-        return "CAREERBRO_REDIS_KEY";
+        return "TGCAREER_REDIS_KEY";
     }
 }
