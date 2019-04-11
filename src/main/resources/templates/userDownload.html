@@ -8,12 +8,17 @@
     <script th:src="@{/static/bootstrap-3.3.7-dist/js/bootstrap.min.js}" type="text/javascript"></script>
 </head>
 <body>
-<table class="text-center" border="0" style="margin-top:4px; margin-left: 18px">
-    <tr>
-        <td><a href="#" class="easyui-linkbutton" onclick="downloadFile();">数据导出</a></td>
-
-    </tr>
-</table>
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">用户数据导出说明</h3>
+    </div>
+    <div class="panel-body">
+        <p class="text-success">用户数据将会导出至.xls的Excel文件中。</p>
+    </div>
+</div>
+<div class="text-center">
+<button class="btn btn-success" onclick="downloadFile();">数据导出</button>
+</div>
 </body>
 <script>
     function downloadFile(){
