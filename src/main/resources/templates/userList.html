@@ -10,26 +10,26 @@
 <body>
 <div class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading">小程序用户信息</div>
+    <div class="panel-heading text-center"><strong>小程序用户信息</strong></div>
 
     <!-- Table -->
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped text-center">
         <tr>
-            <th>姓名</th>
-            <th>职位</th>
-            <th>公司</th>
-            <th>城市</th>
-            <th>性别</th>
-            <th>年龄</th>
-            <th>电话</th>
-            <th>大学</th>
-            <th>学历</th>
-            <th>期望年薪</th>
-            <th>年薪</th>
-            <th>月薪</th>
-            <th>资料更新时间</th>
-            <th>创建时间</th>
-            <th>推送</th>
+            <th class="text-center">姓名</th>
+            <th class="text-center">职位</th>
+            <th class="text-center">公司</th>
+            <th class="text-center">城市</th>
+            <th class="text-center">性别</th>
+            <th class="text-center">年龄</th>
+            <th class="text-center">电话</th>
+            <th class="text-center">大学</th>
+            <th class="text-center">学历</th>
+            <th class="text-center">期望年薪</th>
+            <th class="text-center">年薪</th>
+            <th class="text-center">月薪</th>
+            <th class="text-center">资料更新时间</th>
+            <th class="text-center">创建时间</th>
+            <th class="text-center">推送</th>
         </tr>
         <!--/*@thymesVar id="users" type="java.util.List"*/-->
         <!--/*@thymesVar id="user" type="com.main.tgcareer.modules.user.entity.User"*/-->
@@ -71,4 +71,9 @@
     </div>
 </div>
 </body>
+<style>
+    .table tbody tr td{
+        vertical-align: middle;
+    }
+</style>
 </html>
