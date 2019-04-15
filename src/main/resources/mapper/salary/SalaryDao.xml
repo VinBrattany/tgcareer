@@ -25,7 +25,10 @@
                 a.city LIKE CONCAT('%','${city}','%')
             </if>
             <if test="job != null">
-                a.job LIKE CONCAT('%','${job}','%')
+                a.city LIKE CONCAT('%','${job}','%') OR
+                a.job LIKE CONCAT('%','${job}','%') OR
+                a.corporation LIKE CONCAT('%','${job}','%')
+--                 a.job LIKE CONCAT('%','${job}','%')
             </if>
             <if test="corporation != null">
                 a.corporation LIKE CONCAT('%','${corporation}','%')
