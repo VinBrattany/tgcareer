@@ -55,6 +55,8 @@ public class LoginController extends BaseController{
                     //已注册
                     if (null != user){
                         User thisUser = userService.getUser(openid);
+                        //登录次数+1
+                        userService.addLogin(openid);
                         thisUser.setOpenid("");
                         map.put("data",thisUser);
                         return Ajax.success(map);

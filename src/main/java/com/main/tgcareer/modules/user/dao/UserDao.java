@@ -34,5 +34,9 @@ public interface UserDao {
     public void deleteUser(String id);
 
     public List<User> getAllUser(Map params);
+
+    public void addLogin(String id);
+
+    public void addLooks(String id);
 }
 

@@ -9,6 +9,8 @@
        a.college as college,
        a.photo_path as photoPath,
        a.name as name,
+       a.login as login,
+       a.looks as looks,
        a.corporation as corporation,
        a.job as job,
        a.city as city,
@@ -136,5 +138,16 @@
         WHERE open_id = #{openid}
     </update>
 
+    <update id="addLogin">
+        UPDATE user
+        SET login = login +1
+        WHERE open_id = #{openid}
+    </update>
+
+    <update id="addLooks">
+        UPDATE user
+        SET looks = looks +1
+        WHERE open_id = #{openid}
+    </update>
 
 </mapper>

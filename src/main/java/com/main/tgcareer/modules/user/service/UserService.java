@@ -39,4 +39,12 @@ public class UserService {
         return userDao.getAllUser(params);
     }
 
+    public void addLogin(String id){
+        userDao.addLogin(id);
+    }
+
+    public void addLooks(String id){
+        userDao.addLooks(id);
+    }
+
 }

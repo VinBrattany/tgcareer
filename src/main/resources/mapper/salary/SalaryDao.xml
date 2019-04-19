@@ -8,6 +8,7 @@
         a.job as job,
         a.corporation as corporation,
         a.contact as contact,
+        a.public_time as publicTime,
         a.create_time as createTime,
         a.update_time as updateTime
     </sql>

@@ -25,11 +25,11 @@
             <th class="text-center">大学</th>
             <th class="text-center">学历</th>
             <th class="text-center">期望年薪</th>
-            <th class="text-center">年薪</th>
+            <th class="text-center">当前年薪</th>
             <th class="text-center">月薪</th>
             <th class="text-center">资料更新时间</th>
             <th class="text-center">创建时间</th>
-            <th class="text-center">推送</th>
+            <!--<th class="text-center">推送</th>-->
         </tr>
         <!--/*@thymesVar id="users" type="java.util.List"*/-->
         <!--/*@thymesVar id="user" type="com.main.tgcareer.modules.user.entity.User"*/-->
@@ -49,8 +49,8 @@
             <td th:text="${user.monthlySalary}+'K'">1K</td>
             <td th:text="${#dates.format(user.updateTime,'yyyy-MM-dd')}">资料更新时间</td>
             <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">创建时间</td>
-            <td th:if="${user.push} eq true">是</td>
-            <td th:if="${user.push} eq false">否</td>
+            <!--<td th:if="${user.push} eq true">是</td>-->
+            <!--<td th:if="${user.push} eq false">否</td>-->
         </tr>
     </table>
     <div class="text-center">

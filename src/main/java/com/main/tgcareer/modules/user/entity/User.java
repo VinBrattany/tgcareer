@@ -15,6 +15,10 @@ public class User {
 //    name
     @Getter @Setter private String name;
 
+    @Getter @Setter private Integer login;
+
+    @Getter @Setter private Integer looks;
+
     @Getter @Setter private String corporation;
 
     @Getter @Setter private String job;

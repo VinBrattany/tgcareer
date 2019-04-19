@@ -189,9 +189,10 @@ public class AdminLoginController {
             sheet.addCell(new jxl.write.Label(6, 0, "电话"));
             sheet.addCell(new jxl.write.Label(7, 0, "大学"));
             sheet.addCell(new jxl.write.Label(8, 0, "学历"));
-            sheet.addCell(new jxl.write.Label(9, 0, "是否推送"));
+            sheet.addCell(new jxl.write.Label(9, 0, "年龄"));
+//            sheet.addCell(new jxl.write.Label(9, 0, "是否推送"));
             sheet.addCell(new jxl.write.Label(10, 0, "期望年薪"));
-            sheet.addCell(new jxl.write.Label(11, 0, "年薪"));
+            sheet.addCell(new jxl.write.Label(11, 0, "当前年薪"));
             sheet.addCell(new jxl.write.Label(12, 0, "月薪"));
             sheet.addCell(new jxl.write.Label(13, 0, "微信昵称"));
             sheet.addCell(new jxl.write.Label(14, 0, "更新时间"));
@@ -208,7 +209,8 @@ public class AdminLoginController {
                 sheet.addCell(new jxl.write.Label(6, i, users.get(i - 1).getPhone()));
                 sheet.addCell(new jxl.write.Label(7, i, users.get(i - 1).getCollege()));
                 sheet.addCell(new jxl.write.Label(8, i, users.get(i - 1).getEduction()));
-                sheet.addCell(new jxl.write.Label(9, i, users.get(i - 1).isPush()? "是":"否"));
+                sheet.addCell(new jxl.write.Label(9, i, String.valueOf(users.get(i - 1).getAge())));
+//                sheet.addCell(new jxl.write.Label(9, i, users.get(i - 1).isPush()? "是":"否"));
                 sheet.addCell(new jxl.write.Label(10, i, String.valueOf(users.get(i - 1).getExpectedAnnualSalary())));
                 sheet.addCell(new jxl.write.Label(11, i, String.valueOf(users.get(i - 1).getAnnualSalary())));
                 sheet.addCell(new jxl.write.Label(12, i, String.valueOf(users.get(i - 1).getMonthlySalary())));
@@ -240,6 +242,8 @@ public class AdminLoginController {
     @ResponseBody
     public AjaxJson upload(MultipartFile file){
 
+        // 设置日期格式
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
 //        System.out.println(file.getOriginalFilename());
         Workbook book  = null;
         try {
@@ -253,6 +257,7 @@ public class AdminLoginController {
                     salary.setJob(cell[2].getContents());
                     salary.setCorporation(cell[3].getContents());
                     salary.setContact(cell[4].getContents());
+                    salary.setPublicTime(sf.parse(cell[5].getContents()));
                     salaryService.saveSalary(salary);
             }
             book.close();
