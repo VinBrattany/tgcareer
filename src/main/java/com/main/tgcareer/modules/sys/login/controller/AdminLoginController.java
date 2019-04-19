@@ -197,6 +197,8 @@ public class AdminLoginController {
             sheet.addCell(new jxl.write.Label(13, 0, "微信昵称"));
             sheet.addCell(new jxl.write.Label(14, 0, "更新时间"));
             sheet.addCell(new jxl.write.Label(15, 0, "创建时间"));
+            sheet.addCell(new jxl.write.Label(16, 0, "登录次数"));
+            sheet.addCell(new jxl.write.Label(17, 0, "查看职位次数"));
 
             // 将数据追加
             for (int i = 1; i < users.size() + 1; i++) {
@@ -222,6 +224,8 @@ public class AdminLoginController {
                 Date createTime = users.get(i - 1).getCreateTime();
                 String createStr = sf.format(createTime);
                 sheet.addCell(new jxl.write.Label(15, i, createStr));// 创建日期
+                sheet.addCell(new jxl.write.Label(16, i, String.valueOf(users.get(i-1).getLogin())));
+                sheet.addCell(new jxl.write.Label(16, i, String.valueOf(users.get(i-1).getLooks())));
             }
             book.write();book.close();
         } catch (Exception e) {

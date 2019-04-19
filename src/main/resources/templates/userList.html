@@ -16,6 +16,8 @@
     <table class="table table-bordered table-striped text-center">
         <tr>
             <th class="text-center">姓名</th>
+            <th class="text-center">登录次数</th>
+            <th class="text-center">查看职位次数</th>
             <th class="text-center">职位</th>
             <th class="text-center">公司</th>
             <th class="text-center">城市</th>
@@ -35,6 +37,8 @@
         <!--/*@thymesVar id="user" type="com.main.tgcareer.modules.user.entity.User"*/-->
         <tr th:each="user: ${users}">
             <td th:text="${user.name}">王</td>
+            <td th:text="${user.login}">0</td>
+            <td th:text="${user.looks}">0</td>
             <td th:text="${user.job}">精算师</td>
             <td th:text="${user.corporation}">华为</td>
             <td th:text="${user.city}">北京</td>
