@@ -47,13 +47,15 @@
         city,
         job,
         corporation,
-        contact
+        contact,
+        public_time
         ) VALUES (
         #{id},
         #{city},
         #{job},
         #{corporation},
-        #{contact}
+        #{contact},
+        #{publicTime}
         )
     </insert>
 
