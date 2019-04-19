@@ -225,7 +225,7 @@ public class AdminLoginController {
                 String createStr = sf.format(createTime);
                 sheet.addCell(new jxl.write.Label(15, i, createStr));// 创建日期
                 sheet.addCell(new jxl.write.Label(16, i, String.valueOf(users.get(i-1).getLogin())));
-                sheet.addCell(new jxl.write.Label(16, i, String.valueOf(users.get(i-1).getLooks())));
+                sheet.addCell(new jxl.write.Label(17, i, String.valueOf(users.get(i-1).getLooks())));
             }
             book.write();book.close();
         } catch (Exception e) {
