@@ -4,11 +4,9 @@ import com.main.tgcareer.common.jason.Ajax;
 import com.main.tgcareer.common.jason.AjaxJson;
 import com.main.tgcareer.modules.salary.entity.Salary;
 import com.main.tgcareer.modules.salary.service.SalaryService;
-import com.main.tgcareer.modules.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -19,14 +17,10 @@ public class SalaryController {
     @Autowired
     SalaryService salaryService;
 
-    @Autowired
-    UserService userService;
-
     @RequestMapping(method = RequestMethod.GET,value = "salary")
-    public AjaxJson salary(HttpServletRequest httpServletRequest, @RequestParam Map<String,String> params){
+    public AjaxJson salary(@RequestParam Map<String,String> params){
         LinkedHashMap<String,Object> maps = new LinkedHashMap<>();
         maps.put("data",salaryService.getSalary(params));
-        userService.addLooks(httpServletRequest.getParameter("token"));
         return Ajax.success(maps);
     }
 

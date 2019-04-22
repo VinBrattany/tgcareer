@@ -68,6 +68,12 @@ public class UserController extends BaseController{
 
         return city;
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "looks")
+    public AjaxJson looks(HttpServletRequest httpServletRequest){
+        userService.addLooks(redisService.get(httpServletRequest.getParameter("token")).toString());
+        return Ajax.success();
+    }
     /**
      * 删除用户信息
      */
