@@ -19,20 +19,30 @@
         <include refid="salaryColumns" />
         FROM salary a
         <where>
-            <if test="id != null">
-                a.id = #{id}
+            <if test="arg != null and arg == 1">
+                locate(#{temp},concat(city,job,corporation))>0
             </if>
-            <if test="city != null">
-                a.city LIKE CONCAT('%','${city}','%')
+            <if test="arg != null and arg == 2">
+                locate(substring_index(#{temp},' ',1),concat(city,job,corporation))>0
+                and locate(substring_index(#{temp},' ',-1),concat(city,job,corporation))>0
             </if>
-            <if test="job != null">
-                a.city LIKE CONCAT('%','${job}','%') OR
-                a.job LIKE CONCAT('%','${job}','%') OR
-                a.corporation LIKE CONCAT('%','${job}','%')
---                 a.job LIKE CONCAT('%','${job}','%')
+            <if test="arg != null and arg == 3">
+                locate(substring_index(#{temp},' ',1),concat(city,job,corporation))>0
+                AND locate(substring_index(substring_index(#{temp},' ',2),' ',-1),concat(city,job,corporation))>0
+                AND locate(substring_index(#{temp},' ',-1),concat(city,job,corporation))>0
             </if>
-            <if test="corporation != null">
-                a.corporation LIKE CONCAT('%','${corporation}','%')
+            <if test="arg != null and arg == 4">
+                locate(substring_index(#{temp},' ',1),concat(city,job,corporation))>0
+                AND locate(substring_index(substring_index(#{temp},' ',2),' ',-1),concat(city,job,corporation))>0
+                AND locate(substring_index(substring_index(#{temp},' ',3),' ',-1),concat(city,job,corporation))>0
+                AND locate(substring_index(#{temp},' ',-1),concat(city,job,corporation))>0
+            </if>
+            <if test="arg != null and arg == 5">
+                locate(substring_index(#{temp},' ',1),concat(city,job,corporation))>0
+                AND locate(substring_index(substring_index(#{temp},' ',2),' ',-1),concat(city,job,corporation))>0
+                AND locate(substring_index(substring_index(#{temp},' ',3),' ',-1),concat(city,job,corporation))>0
+                AND locate(substring_index(substring_index(#{temp},' ',4),' ',-1),concat(city,job,corporation))>0
+                AND locate(substring_index(#{temp},' ',-1),concat(city,job,corporation))>0
             </if>
         </where>
         ORDER BY a.public_time DESC
