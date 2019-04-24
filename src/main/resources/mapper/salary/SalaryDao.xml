@@ -35,7 +35,7 @@
                 a.corporation LIKE CONCAT('%','${corporation}','%')
             </if>
         </where>
-        ORDER BY a.update_time DESC
+        ORDER BY a.public_time DESC
         <if test="limit != null">
             LIMIT ${start*limit-limit},${limit}
         </if>
@@ -73,6 +73,9 @@
             </if>
             <if test="contact != null">
                 contact = #{contact},
+            </if>
+            <if test="publicTime != null">
+                public_time = #{publicTime}
             </if>
         </set>
         WHERE id = #{id}

@@ -5,6 +5,9 @@
     <title>薪资管理</title>
     <script th:src="@{/static/jquery-3.3.1/jquery-3.3.1.min.js}" type="text/javascript"></script>
     <link th:href="@{/static/bootstrap-3.3.7-dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/bootstrap-datetimepicker.min.css}" rel="stylesheet">
+    <!--<script th:src="@{/static/js/moment.js}"></script>-->
+    <script th:src="@{/static/js/bootstrap-datetimepicker.min.js}"></script>
     <script th:src="@{/static/bootstrap-3.3.7-dist/js/bootstrap.min.js}" type="text/javascript"></script>
 </head>
 <body>
@@ -20,6 +23,7 @@
         <th class="text-center">职位</th>
         <th class="text-center">公司</th>
         <th class="text-center">联系方式</th>
+        <th class="text-center">发布时间</th>
         <th class="text-center">数据操作</th>
     </tr>
     <!--/*@thymesVar id="salaries" type="java.util.List"*/-->
@@ -29,7 +33,8 @@
         <td th:text="${salary.job}">精算师</td>
         <td th:text="${salary.corporation}">阿里巴巴</td>
         <td th:text="${salary.contact}">12345678</td>
-        <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#changeModal" th:onclick="'javascript:Values(\''+${salary.id}+'\',\''+${salary.city}+'\',\''+${salary.job}+'\',\''+${salary.corporation}+'\',\''+${salary.contact}+'\')'">修改
+        <td th:text="${#dates.format(salary.publicTime,'yyyy-MM-dd')}">发布时间</td>
+        <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#changeModal" th:onclick="'javascript:Values(\''+${salary.id}+'\',\''+${salary.city}+'\',\''+${salary.job}+'\',\''+${salary.corporation}+'\',\''+${salary.contact}+'\',\''+${salary.publicTime}+'\')'">修改
         </button><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" th:onclick="'javascript:SetId(\''+${salary.id}+'\')'">删除</button></td>
     </tr>
 </table>
@@ -78,7 +83,13 @@
                         <span class="input-group-addon">联系方式</span>
                         <input type="text" id="contact" class="form-control" value="">
                     </div>
-
+                    <div class="input-group">
+                        <span class="input-group-addon">发布时间</span>
+                        <input type="text" id="publicTime" class="form-control">
+                        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -107,6 +118,31 @@
 </div>
 </body>
 <script type="text/javascript">
+
+    $(function () {
+        $.fn.datetimepicker.dates['zh-CN'] = {
+            days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+            daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+            daysMin: ["日", "一", "二", "三", "四", "五", "六", "日"],
+            months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            today: "今日",
+            suffix: [],
+            meridiem: ["上午", "下午"],
+            weekStart: 1
+        };
+
+        $('#publicTime').datetimepicker({
+            format: 'yyyy-mm-dd',
+//            locale: moment.locale('zh-cn')})
+            language: "zh-CN",
+            showClose: true,	//是否显示关闭 按钮
+            autoclose: true,
+            todayHighlight: true,
+            todayBtn: true,
+            minView: (0 ,'month')
+        });
+    });
     $('#changeModal').on('show.bs.modal', function (e) {
         // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
         $(this).css('display', 'block');
@@ -126,12 +162,13 @@
     function SetId(id) {
         $('#deleteId').val(id);
     }
-    function Values(id,city,job,corporation,contact) {
+    function Values(id,city,job,corporation,contact,public_time) {
         $('#id').val(id);
         $('#city').val(city);
         $('#job').val(job);
         $('#corporation').val(corporation);
         $('#contact').val(contact);
+        $('#publicTime').val(crtTimeFtt(new Date(public_time)));
     }
     function deleteSalary() {
         $.ajax({
@@ -154,7 +191,8 @@
             city: $('#city').val(),
             job: $('#job').val(),
             corporation: $('#corporation').val(),
-            contact: $('#contact').val()
+            contact: $('#contact').val(),
+            publicTime: $('#publicTime').val()
         }
         $.ajax({
             url: '/tgcareer/salary/salary',
@@ -169,6 +207,12 @@
                 }
             }
         });
+    }
+    function crtTimeFtt(val) {
+        if (val !== null) {
+            var date = new Date(val);
+            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+        }
     }
 </script>
 <style>
