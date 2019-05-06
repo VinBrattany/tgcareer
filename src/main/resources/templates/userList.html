@@ -61,16 +61,16 @@
     <ul class="pagination pagination-lg" >
         <!--/*@thymesVar id="indexPage" type="java.lang.Integer"*/-->
         <!--/*@thymesVar id="totalPage" type="java.lang.Integer"*/-->
-        <li th:class="${indexPage==1}?'disabled' : ''"><a th:if="${indexPage==1}" href="#">上一页</a><a th:if="${indexPage>1}" th:href="@{'/salaryList?indexPage=' + ${indexPage-1}}">上一页</a></li>
-        <li th:if="${indexPage >=4}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage-3}}" th:text="${indexPage -3}" >1</a></li>
-        <li th:if="${indexPage >=3}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage-2}}" th:text="${indexPage -2}" >1</a></li>
-        <li th:if="${indexPage >=2}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage-1}}" th:text="${indexPage -1}" >1</a></li>
+        <li th:class="${indexPage==1}?'disabled' : ''"><a th:if="${indexPage==1}" href="#">上一页</a><a th:if="${indexPage>1}" th:href="@{'/userList?indexPage=' + ${indexPage-1}}">上一页</a></li>
+        <li th:if="${indexPage >=4}" ><a th:href="@{'/userList?indexPage=' + ${indexPage-3}}" th:text="${indexPage -3}" >1</a></li>
+        <li th:if="${indexPage >=3}" ><a th:href="@{'/userList?indexPage=' + ${indexPage-2}}" th:text="${indexPage -2}" >1</a></li>
+        <li th:if="${indexPage >=2}" ><a th:href="@{'/userList?indexPage=' + ${indexPage-1}}" th:text="${indexPage -1}" >1</a></li>
         <li class="active"><a href="#" th:text="${indexPage}" >1</a></li>
-        <li th:if="${indexPage+1 <=totalPage}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+1}}" th:text="${indexPage +1}" >1</a></li>
-        <li th:if="${indexPage+2 <=totalPage}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+2}}" th:text="${indexPage +2}" >1</a></li>
-        <li th:if="${indexPage+3 <=totalPage}" ><a th:href="@{'/salaryList?indexPage=' + ${indexPage+3}}" th:text="${indexPage +3}" >1</a></li>
+        <li th:if="${indexPage+1 <=totalPage}" ><a th:href="@{'/userList?indexPage=' + ${indexPage+1}}" th:text="${indexPage +1}" >1</a></li>
+        <li th:if="${indexPage+2 <=totalPage}" ><a th:href="@{'/userList?indexPage=' + ${indexPage+2}}" th:text="${indexPage +2}" >1</a></li>
+        <li th:if="${indexPage+3 <=totalPage}" ><a th:href="@{'/userList?indexPage=' + ${indexPage+3}}" th:text="${indexPage +3}" >1</a></li>
 
-        <li th:class="${indexPage==totalPage}?'disabled' : ''" ><a th:if="${indexPage==totalPage}" href="#">下一页</a><a th:if="${indexPage<totalPage}" th:href="@{'/salaryList?indexPage=' + ${indexPage+1}}">下一页</a></li>
+        <li th:class="${indexPage==totalPage}?'disabled' : ''" ><a th:if="${indexPage==totalPage}" href="#">下一页</a><a th:if="${indexPage<totalPage}" th:href="@{'/userList?indexPage=' + ${indexPage+1}}">下一页</a></li>
     </ul><br>
     </div>
 </div>
